@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, viewport-fit=cover, initial-scale=1.0" />
+        <meta name="title" content="인바이유" />
+        <meta name="author" content="inbyu" />
+        <meta name="copyright" content="inbyu" />
+        <title>인바이유</title>
+        <link rel="stylesheet" href="../../resources/css/common.css" />
+        <script src="../../resources/js/lib/jquery-3.3.1.min.js"></script>
+        <style>
+        </style>
+    </head>
+    <body>
+    <div><!-- vue 작업용 무의미 div -->
+        <div class="wrap" id="wrap">
+            <div class="head-button">
+                <a href="javascript:history.back();" class="btn-icon back"></a>
+            </div>
+            <div class="container" id="container">
+                <header class="header">
+                    <h1 class="text-headline">간편비밀번호를<br>입력해주세요.</h1>
+                    <div class="progressbar"><span class="col-6 step-2"></span></div>
+                </header>
+
+                <!-- 비밀번호 확인 입력 시 header -->
+                <!-- <header class="header">
+                    <h1 class="text-headline">간편비밀번호를<br>다시 입력해주세요.</h1>
+                    <div class="progressbar"><span class="col-6 step-3"></span></div>
+                </header> -->
+                <!-- //비밀번호 확인 입력 -->
+
+                <!-- 로그인 시 header -->
+                <!-- <header class="header">
+                    <h1 class="text-headline">간편비밀번호를<br>입력해주세요.</h1>
+                </header> -->
+                <!-- //로그인 시 입력 -->
+
+                <!-- 비밀번호 재설정-01 시 header -->
+                <!-- <header class="header">
+                    <h1 class="text-headline">현재 간편비밀번호를<br>입력해주세요.</h1>
+                    <div class="progressbar"><span class="col-4 step-1"></span></div>
+                </header> -->
+                <!-- //비밀번호 재설정 -->
+
+                <!-- 비밀번호 재설정-02 시 header -->
+                <!-- <header class="header">
+                    <h1 class="text-headline">변경할 간편비밀번호를<br>입력해주세요.</h1>
+                    <div class="progressbar"><span class="col-4 step-2"></span></div>
+                </header> -->
+                <!-- //비밀번호 재설정 -->
+
+                <!-- 비밀번호 재설정-03 시 header -->
+                <!-- <header class="header">
+                    <h1 class="text-headline">변경할 간편비밀번호를<br>다시 입력해주세요.</h1>
+                    <div class="progressbar"><span class="col-4 step-3"></span></div>
+                </header> -->
+                <!-- //비밀번호 재설정 확인 -->
+
+
+                <div class="contents pb-0" id="contents">
+                    <div class="pass-key">
+                        <div class="module-password">
+                            <input type="password" id="password" value="" maxlength="4" readonly hidden>
+                            <div class="dots">
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                        </div>
+                        <div class="module-keypad">
+                            <div class="number">
+                                <button type="button" class="key" data-number="0">0</button>
+                                <button type="button" class="key" data-number="1">1</button>
+                                <button type="button" class="key" data-number="2">2</button>
+                                <button type="button" class="key" data-number="3">3</button>
+                                <button type="button" class="key" data-number="4">4</button>
+                                <button type="button" class="key" data-number="5">5</button>
+                                <button type="button" class="key" data-number="6">6</button>
+                                <button type="button" class="key" data-number="7">7</button>
+                                <button type="button" class="key" data-number="8">8</button>
+                                <button type="button" class="key" data-number="9">9</button>
+                            </div>
+                            <div class="delete">
+                                <button type="button" class="btn-delete_all">전체삭제</button>
+                                <button type="button" class="btn-delete_one" title="한글자삭제"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        <!-- ui관련 js -->
+        <script src="../../resources/js/event.js"></script>
+        <script>
+            $(function() {
+                const $window = window.$window || $(window);
+                const $body = $('body');
+
+                // custom password
+                const $passwordInput = $('#password');
+                countValueLength($passwordInput);
+
+                $body.on('click', '.module-keypad .delete button', function(e) {
+                    const $this = $(this);
+
+                    $this.hasClass('btn-delete_all') ? clearLetters($passwordInput) : deleteOneLetter($passwordInput);
+                    countValueLength($passwordInput);
+                });
+
+                $body.on('click', '.module-keypad .key', function(e) {
+                    const num = $(this).data('number');
+                    const maxLength = $passwordInput.attr('maxlength');
+                    let currentValue = $passwordInput.val();
+                    currentValue.length + 1 <= maxLength ?  $($passwordInput).val(currentValue + num) : $($passwordInput).val(currentValue);
+                    
+                    countValueLength($passwordInput);
+                });
+            });
+        </script>
+    </body>
+</html>

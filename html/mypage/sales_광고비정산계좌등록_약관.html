@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, viewport-fit=cover, initial-scale=1.0" />
+        <meta name="title" content="인바이유" />
+        <meta name="author" content="inbyu" />
+        <meta name="copyright" content="inbyu" />
+        <title>인바이유</title>
+        <link rel="stylesheet" href="../../resources/css/common.css" />
+        <script src="../../resources/js/lib/jquery-3.3.1.min.js"></script>
+        <style>
+        </style>
+    </head>
+    <body>
+        
+        <div class="wrap" id="wrap">
+            <div class="head-button">
+                <a href="javascript:history.back();" class="btn-icon back"></a>
+            </div>
+            <div class="container" id="container">
+                <header class="header">
+                    <h1 class="text-headline">보험마켓 광고비 정산을 위한<br>계좌정보 등록 약관에<br>동의해주세요.</h1>
+                    <div class="progressbar"><span class="col-3 step-1"></span></div>
+                </header>
+                <div class="contents" id="contents">
+                    <fieldset>
+                        <dl class="section-terms_agree e-check_range">
+                            <dt><input type="checkbox" id="termAgreeAllCheckbox" class="all-check"><label for="termAgreeAllCheckbox">모두 동의</label></dt>
+                            <dd>
+                                <ul>
+                                    <li class="form-chk"><input type="checkbox" required id="termAgreeCheckbox1"><label for="termAgreeCheckbox1">설계사 회원 본인 명의의 계좌로만 정산받을 수 있습니다.</label></li>
+                                    <li class="form-chk"><input type="checkbox" required id="termAgreeCheckbox2"><label for="termAgreeCheckbox2">전월 1개월 간의 계약 실적에 대해 당월 말일 광고비가 입금됩니다.</label></li>
+                                    <li class="form-chk"><input type="checkbox" required id="termAgreeCheckbox3"><label for="termAgreeCheckbox3">보험계약이 해지된 경우 지급(정산)된 광고비의 차액을 환불해주셔야 합니다.</label></li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </fieldset>
+                </div>
+                <div class="area-button fixed">
+                    <a href="javascript:;" class="btn btn-primary disabled">다음</a><!-- 활성 시 disabled 삭제 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ui관련 js -->
+        <script src="../../resources/js/event.js"></script>
+        <script>
+            $(function() {
+                const $window = window.$window || $(window);
+                const $body = $('body');
+
+            });
+        </script>
+    </body>
+</html>

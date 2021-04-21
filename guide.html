@@ -1,0 +1,1627 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, viewport-fit=cover, initial-scale=1.0" />
+        <meta name="title" content="인바이유" />
+        <meta name="author" content="inbyu" />
+        <meta name="copyright" content="inbyu" />
+        <title>설계사앱 UI Component</title>
+        <link rel="stylesheet" href="./resources/css/common.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/vs2015.min.css">
+        <script src="./resources/js/lib/jquery-3.3.1.min.js"></script>
+        <script src="./resources/js/lib/mobileSelect.min.js"></script>
+        <script src="//cdn.jsdelivr.net/highlight.js/9.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <style>
+            .guide {height: 100vh; background: #f9fafc;}
+            .guide .container {display: flex; flex-direction: row; flex-wrap: wrap; width: 100%; height: calc(100vh - 56px);}
+            .nav {overflow-y: auto; padding-bottom: 30px; flex: 0 0 300px; max-height: 100%; border-right: solid 1px #e7eaf3;background: #fff; box-sizing: border-box;}
+            .nav > ul > li {margin-top: 1.5rem;}
+            .nav li span,
+            .nav li a {padding: 0 30px; height: 36px; line-height: 36px; font-size: 16px;}
+            .nav li a {display: block;}
+            .nav li a:hover {background: rgba(0, 0, 0, 0.02);}
+            .nav li span {font-size: .9em; color: #9299a1;}
+            /* .nav ul ul li {padding-left: 16px;} */
+            .card {padding: 1.5rem; border: 0.0625rem solid rgba(231,234,243,.7); border-radius: 0.75em; background: #fff; background-clip: border-box; box-shadow: 0 6px 12px rgb(140 152 164 / 8%);}
+            .guide .container .contents {position:relative; overflow-y: auto; display: flex; flex-direction: column; padding-top: 0; flex: 1 0 auto; width: calc(100% - 300px); height: 100%; box-sizing: border-box;}
+            .guide.contents > .inner {position: absolute; top:0; right:0; left:0; bottom:0;}
+            .section {margin: 0 auto 0; width: 80%; max-width: 700px;}
+            .section > h2 {margin-top: 3.5rem; margin-bottom: 1rem; font-size: 26px; font-weight: 700;}
+            .section > h2 span {font-size: .7em;}
+            h3 {margin-top: 1.5rem; margin-bottom: .8rem; font-size: 20px; font-weight: 500;}
+            h2 + .desc,
+            h3 + .desc {font-size: 0.89rem;}
+            .code {margin-top: 1rem;}
+            .desc {margin-bottom: 1rem;font-size: 1.09375rem;}
+            .table-layout {margin-top: 10px;}
+            .table-layout table {table-layout: fixed; width:100%; border-collapse: collapse; border: dotted 1px #e8e8e8;}
+            .table-layout th, .table-layout td {padding: 7px 5px; font-size: 14px; border: dotted 1px #e8e8e8;}
+            .table-layout th {background: #f5f5f5;}
+            .table-layout tbody th {font-weight:500;}
+            .table-layout .center {text-align:center;}
+            .table-layout .left {text-align:left;}
+            .table-layout tbody:nth-of-type(even) {background:#f8f8f8;}
+
+            .hljs {font-size: 14px; border-radius: 6px;}
+        </style>
+    </head>
+    <body>
+        <div class="wrap guide" id="wrap">
+            <div class="head-button">
+                <a href="javascript:history.back();" class="btn-icon back"></a>
+                <h1 class="title">설계사앱 UI Guide</h1>
+            </div>
+            <div class="container" id="container">
+                <nav class="nav">
+                    <ul>
+                        <li><span>Layout</span>
+                            <ul>
+                                <li><a href="#layout">layout</a></li>
+                                <li><a href="#layer">layer</a></li>
+                            </ul>
+                        </li>
+                        <li><span>common</span>
+                            <ul>
+                                <li><a href="#spacer">spacer</a></li>
+                                <li><a href="#color">color</a></li>
+                                <li><a href="#text">text</a></li>
+                                <li><a href="#button">button</a></li>
+                                <li><a href="#icon">icon</a></li>
+                                <li><a href="#form">form</a></li>
+                                <li><a href="#badge">badge</a></li>
+                            </ul>
+                        </li>
+                        <li><span>module</span>
+                            <ul>
+                                <li><a href="#tab">tab</a></li>
+                                <li><a href="#tooltip">tooltip</a></li>
+                                <li><a href="#dl">dl</a></li>
+                                <li><a href="#table">table</a></li>
+                                <li><a href="#yearmonth">년/월 선택</a></li>
+                            </ul>
+                        </li>
+                        <li><span>Others</span>
+                            <ul>
+                                <li><a href="#logo">logo</a></li>
+                                <li><a href="#passkey">비밀번호 키패드</a></li>
+                                <li><a href="#calculate">정산목록</a></li>
+                                <li><a href="#insu">보험목록</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="contents" id="contents">
+                    <div class="inner">
+                        <section id="layout" class="section">
+                            <h2>Layout</h2>
+                            <div class="card">
+                                <pre><code class="html">&lt;div&gt;
+        &lt;div class="wrap" id="wrap"&gt;
+            &lt;div class="head-button"&gt;
+                &lt;div class="al-right"&gt;
+                    &lt;a href="#aside-alert" class="btn-icon alert on e-show-aside"&gt;&lt;/a&gt;
+                    &lt;a href="javascript:;" class="btn-icon hamberger"&gt;&lt;/a&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="container " id="container"&gt;
+                &lt;header class="header"&gt;
+                    &lt;h1 class="text-headline"&gt;head&lt;/h1&gt;
+                &lt;/header&gt;
+                &lt;div class="contents" id="contents"&gt;
+                    @content
+                &lt;/div&gt;
+                &lt;div class="area-button fixed"&gt;
+                    &lt;a href="javascript:;" class="btn btn-primary"&gt;btn&lt;/a&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt; &lt;-- //wrap --&gt;
+        &lt;section  class="layer full layer-****" id="layerCommon"&gt;
+        &lt;/section&gt;
+    &lt;/div&gt;</code></pre>
+                            </div>
+                        </section>
+
+                        <section id="layer" class="section">
+                            <h2>Layer</h2>
+                            <p class="desc">layer는 full, bottom, center 3가지가 존재한다.</p>
+                            <div class="card">
+                                <pre><code class="html">&lt;section class="layer full layer-*****" id="layer****"&gt;
+    &lt;div class="container"&gt;
+        &lt;div class="head-button"&gt;
+            &lt;a href="javascript:;" class="btn-icon close e-close"&gt;&lt;/a&gt;
+        &lt;/div&gt;
+        &lt;div class="content p-reset"&gt;
+            &lt;header class="head"&gt;
+                &lt;h2&gt;Head&lt;/h2&gt;
+            &lt;/header&gt;
+            &lt;header class="head-title"&gt;
+                &lt;h2&gt;광고실적 상세&lt;/h2&gt;
+            &lt;/header&gt;
+            &lt;div&gt; 
+                @content
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+                            </div>
+                        </section>
+
+                        <section id="spacer" class="section">
+                            <h2>spacer <span>(variable)</span></h2>
+                            <div class="card">
+                                <div class="table-layout">
+                                    <table>
+                                        <colgroup>
+                                            <col style="width:120px">
+                                            <col style="width:auto">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <td>6px</td>
+                                                <td style="padding-top: 6px;"><pre><code class="css">$spacer-xs</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td>10px</td>
+                                                <td style="padding-top: 10px;"><pre><code class="css">$spacer-s</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td>16px</td>
+                                                <td style="padding-top: 16px;"><pre><code class="css">$spacer-r</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td>30px</td>
+                                                <td style="padding-top: 30px;"><pre><code class="css">$spacer-m</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td>60px</td>
+                                                <td style="padding-top: 60px;"><pre><code class="css">$spacer-l</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col" colspan="2">margin top</th>
+                                            </tr>
+                                            <tr>
+                                                <td>mt-xs</td>
+                                                <td><pre><code class="html">&lt;div class="mt-xs"&gt;anything&lt;/div&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td>mt-s</td>
+                                                <td><pre><code class="html">&lt;div class="mt-s">anything&lt;/div&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td>mt-r</td>
+                                                <td><pre><code class="html">&lt;div class="mt-r">anything&lt;/div&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td>mt-m</td>
+                                                <td><pre><code class="html">&lt;div class="mt-m">anything&lt;/div&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td>mt-l</td>
+                                                <td><pre><code class="html">&lt;div class="mt-l">anything&lt;/div&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td>mt-50</td>
+                                                <td><pre><code class="html">&lt;div class="mt-50">anything&lt;/div&gt;</code></pre></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="color" class="section">
+                            <h2>color <span>(variable)</span></h2>
+                            <div class="card">
+                                <div class="table-layout">
+                                    <table>
+                                        <colgroup>
+                                            <col style="width:200px">
+                                            <col style="width:auto">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <td style="color: #fff; background-color: rgba(0, 0, 0, 0.12)">#fff</td>
+                                                <td><pre><code class="css">$color-wh</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color: #000">#000</td>
+                                                <td><pre><code class="css">$color-bk</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color: #ffdb00">#ffdb00</td>
+                                                <td><pre><code class="css">$color-primary-dark</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color: #ffeb00">#ffeb00</td>
+                                                <td><pre><code class="css">$color-primary-light</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color: #4263eb">#4263eb</td>
+                                                <td><pre><code class="css">$color-secondary-dark</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color: #5d79ee">#5d79ee</td>
+                                                <td><pre><code class="css">$color-secondary-light</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color: #ff3c3c">#ff3c3c</td>
+                                                <td><pre><code class="css">$color-error</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color: #f7b500">#f7b500</td>
+                                                <td><pre><code class="css">$color-warning</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color: #00ba90">#00ba90</td>
+                                                <td><pre><code class="css">$color-success</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color: #212529">#212529</td>
+                                                <td><pre><code class="css">$color-text-default</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color: #0e1012">#0e1012</td>
+                                                <td><pre><code class="css">$color-text-basic</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color: #444b52">#444b52</td>
+                                                <td><pre><code class="css">$color-text-sub</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color: #ced4da">#ced4da</td>
+                                                <td><pre><code class="css">$color-text-hint</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color: #9299a1">#9299a1</td>
+                                                <td><pre><code class="css">$color-disabled</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="background-color: #f5f5f5">#f5f5f5</td>
+                                                <td><pre><code class="css">$color-bg-80</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="background-color: #edeef0">#edeef0</td>
+                                                <td><pre><code class="css">$color-bg-90</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="background-color: rgba(0, 0, 0, 0.32)"> rgba(0, 0, 0, 0.32)</td>
+                                                <td><pre><code class="css">$color-bg-dimmed</code></pre></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="text" class="section">
+                            <h2>text</h2>
+                            <div class="card">
+                                <div class="table-layout">
+                                    <table>
+                                        <colgroup>
+                                            <col style="width:200px">
+                                            <col style="width:auto">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <td><h2 class="text-headline">text-headline</h2></td>
+                                                <td><pre><code class="html">&lt;h2 class="text-headline"&gt;text-headline&lt;/h2&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><h3 class="text-title">text-title</h3></td>
+                                                <td><pre><code class="html">&lt;h3 class="text-title"&gt;text-title&lt;/h3&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><h3 class="text-sub-head">text-sub-head</h3></td>
+                                                <td><pre><code class="html">&lt;h3 class="text-sub-head"&gt;text-sub-head&lt;/h3&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><p class="text-info">text-info</p></td>
+                                                <td><pre><code class="html">&lt;p class="text-info"&gt;text-info&lt;/p&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><p class="text-caption">text-caption</p></td>
+                                                <td><pre><code class="html">&lt;p class="text-caption"&gt;text-caption&lt;/p&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><p class="text-underline">text-underline</p></td>
+                                                <td><pre><code class="html">&lt;p class="text-underline"&gt;text-underline&lt;/p&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><p class="text-em">text-em</p></td>
+                                                <td><pre><code class="html">&lt;p class="text-em"&gt;text-em&lt;/p&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><p class="text-error">text-error</p></td>
+                                                <td><pre><code class="html">&lt;p class="text-error"&gt;text-error&lt;/p&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><p class="text-confirm">text-confirm</p></td>
+                                                <td><pre><code class="html">&lt;p class="text-confirm"&gt;text-confirm&lt;/p&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><h2 class="text-headline">어쩌고 저쩌고<em>강조하고 싶을 경우</em></h2></td>
+                                                <td><pre><code class="html">&lt;h2 class="text-headline"&gt;어쩌고 저쩌고&lt;em&gt;강조하고 싶을 경우&lt;/em&gt;&lt;/h2&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><div class="section-email-info">
+                                                    <p class="email">email**@inbyu.com</p>
+                                                </div></td>
+                                                <td><pre><code class="html">&lt;div class="section-email-info"&gt;
+        &lt;p class="email"&gt;email**@inbyu.com&lt;/p&gt;
+    &lt;/div&gt;</code></pre>
+                                            </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="icon" class="section">
+                            <h2>Icon</h2>
+                            <p class="desc">class="icon *****" 추가</p>
+                            <div class="card">
+                                <div class="table-layout">
+                                    <table>
+                                        <colgroup>
+                                            <col style="width:120px">
+                                            <col style="width:auto">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="col" colspan="2" class="left">Common</th>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon camera"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon camera"&gt;camera&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon more"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon more"&gt;more&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon arrow-down-16"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon arrow-down-16"&gt;arrow-down-16&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon no-balance"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon no-balance"&gt;no-balance&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col" colspan="2" class="left">mypage</th>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon customer"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon customer"&gt;customer&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon sales"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon sales"&gt;sales&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon setting"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon setting"&gt;setting&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon app"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon app"&gt;app&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col" colspan="2" class="left">gnb</th>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon home"></i><span class="gnb" style="display: inline-block; margin-left: 10px;"><span class="on"><i class="icon home"></i></span></span></td>
+                                                <td><pre><code class="html">&lt;i class="icon home"&gt;home&lt;/i&gt;<br>.gnb > .on > &lt;i class="icon home"&gt;home&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon report"></i><span class="gnb" style="display: inline-block; margin-left: 10px;"><span class="on"><i class="icon report"></i></span></span></td>
+                                                <td><pre><code class="html">&lt;i class="icon report"&gt;report&lt;/i&gt;<br>.gnb > .on > &lt;i class="icon report"&gt;report&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon market"></i><span class="gnb" style="display: inline-block; margin-left: 10px;"><span class="on"><i class="icon market"></i></span></span></td>
+                                                <td><pre><code class="html">&lt;i class="icon market"&gt;market&lt;/i&gt;<br>.gnb > .on > &lt;i class="icon market"&gt;market&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon compare"></i><span class="gnb" style="display: inline-block; margin-left: 10px;"><span class="on"><i class="icon compare"></i></span></span></td>
+                                                <td><pre><code class="html">&lt;i class="icon compare"&gt;compare&lt;/i&gt;<br>.gnb > .on > &lt;i class="icon compare"&gt;compare&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="button" class="section">
+                            <h2>button</h2>
+                            <div class="card">
+                                <div class="table-layout">
+                                    <table>
+                                        <colgroup>
+                                            <col style="width:200px">
+                                            <col style="width:auto">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <td><a href="javascript:;" class="btn btn-primary">btn-primary</a></td>
+                                                <td><pre><code class="html">&lt;a href="javascript:;" class="btn btn-primary"&gt;btn-secondary&lt;/a&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="javascript:;" class="btn btn-primary disabled">disabled</a></td>
+                                                <td><pre><code class="html">&lt;a href="javascript:;" class="btn btn-primary disabled"&gt;disabled&lt;/a&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="javascript:;" class="btn btn-secondary">btn-secondary</a></td>
+                                                <td><pre><code class="html">&lt;a href="javascript:;" class="btn btn-secondary"&gt;btn-secondary&lt;/a&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#layerCompanyList" class="btn btn-prominent">btn-prominent</a></td>
+                                                <td><pre><code class="html">&lt;a href="#layerCompanyList" class="btn btn-prominent"&gt;btn-prominent&lt;/a&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="javascript:;" class="btn btn-normal">btn-normal</a></td>
+                                                <td><pre><code class="html">&lt;a href="javascript:;" class="btn btn-normal"&gt;btn-normal&lt;/a&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#layerCompanyList" class="btn btn-prominent small">btn-prominent small</a></td>
+                                                <td><pre><code class="html">&lt;a href="#layerCompanyList" class="btn btn-prominent small"&gt;btn-prominent small&lt;/a&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="javascript:;" class="btn btn-normal small">btn-normal small</a></td>
+                                                <td><pre><code class="html">&lt;a href="javascript:;" class="btn btn-normal small"&gt;btn-normal small&lt;/a&gt;</code></pre></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <h3>area-button &gt; btn</h3>
+                            <p class="desc">하단 고정 시 fixed 추가, 디바이스 하단에 위치 시키고 싶을 경우 bottom 추가</p>
+                            <div class="card">
+                                <div class="area-button">
+                                    <a href="javascript:;" class="btn btn-secondary">btn-secondary</a>
+                                    <a href="javascript:;" class="btn btn-primary">btn-primary</a>
+                                </div>
+                                <div class="code">
+                                    <pre><code class="html">&lt;div class="area-button"&gt;
+        &lt;a href="javascript:;" class="btn btn-secondary"&gt;btn-secondary&lt;/a&gt;
+        &lt;a href="javascript:;" class="btn btn-primary"&gt;btn-primary&lt;/a&gt;
+    &lt;/div&gt;</code></pre>
+                                </div>
+                            </div>
+
+                            <h3>btn btn-radio</h3>
+                            <div class="card">
+                                <span class="btn btn-radio"><input type="radio" name="certificate" id="have"><label for="have">네</label></span>
+                                <span class="btn btn-radio"><input type="radio" name="certificate" id="dontHave"><label for="dontHave">아니오</label></span>
+
+                                <div class="code">
+                                    <pre><code class="html">&lt;span class="btn btn-radio"&gt;&lt;input type="radio" name="certificate" id="have"&gt;&lt;label for="have"&gt;네&lt;/label&gt;&lt;/span&gt;
+    &lt;span class="btn btn-radio"&gt;&lt;input type="radio" name="certificate" id="dontHave"&gt;&lt;label for="dontHave"&gt;아니오&lt;/label&gt;&lt;/span&gt;
+    </code></pre>
+                                </div>
+                            </div>
+
+                            <h3>btn btn-more</h3>
+                            <div class="card">
+                                <button class="btn btn-more">더보기(1/3)<i class="icon more"></i></button>
+
+                                <div class="code">
+                                    <pre><code class="html">&lt;button class="btn btn-more"&gt;더보기(1/3)&lt;i class="icon more"&gt;&lt;/i&gt;&lt;/button&gt;</code></pre>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="form" class="section">
+                            <h2>form-group</h2>
+                            <div class="card">
+                                <div class="table-layout">
+                                    <table>
+                                        <colgroup>
+                                            <col style="width:200px">
+                                            <col style="width:auto">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="form-group"><!-- input error 시 class error 추가 -->
+                                                        <strong class="input-label">Label</strong>
+                                                        <span class="f-text"><input type="text" placeholder="placeholder"></span>
+                                                        <p class="text-error">error message</p>
+                                                    </div></td>
+                                                <td><pre><code class="html">&lt;div class="form-group"&gt;&lt;!-- input error 시 class error 추가 --&gt;
+    &lt;strong class="input-label"&gt;Label&lt;/strong&gt;
+    &lt;span class="f-text"&gt;&lt;input type="text" placeholder="placeholder"&gt;&lt;/span&gt;
+    &lt;p class="text-error"&gt;error message&lt;/p&gt;
+&lt;/div&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="form-group pb-0"><!-- input error 시 class error 추가 -->
+                                                        <strong class="input-label">Label</strong>
+                                                        <span class="f-text"><input type="text" placeholder="placeholder" value="하단 여백 없을 경우(pb-0 추가)"></span>
+                                                    </div></td>
+                                                <td><pre><code class="html">&lt;div class="form-group pb-0"&gt;&lt;!-- input error 시 class error 추가 --&gt;
+    &lt;strong class="input-label"&gt;Label&lt;/strong&gt;
+    &lt;span class="f-text"&gt;&lt;input type="text" placeholder="placeholder"&gt;&lt;/span&gt;
+&lt;/div&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="form-group error"><!-- input error 시 class error 추가 -->
+                                                        <strong class="input-label">Label</strong>
+                                                        <span class="f-text"><input type="text" placeholder="placeholder"></span>
+                                                        <p class="text-error">error message</p>
+                                                    </div></td>
+                                                <td><pre><code class="html">&lt;div class="form-group error"&gt;&lt;!-- input error 시 class error 추가 --&gt;
+    &lt;strong class="input-label"&gt;Label&lt;/strong&gt;
+    &lt;span class="f-text"&gt;&lt;input type="text" placeholder="placeholder"&gt;&lt;/span&gt;
+    &lt;p class="text-error"&gt;error message&lt;/p&gt;
+&lt;/div&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="form-group pb-0">
+                                                        <strong class="input-label">Label (error 없음)</strong>
+                                                        <span class="f-text"><input type="text" placeholder="placeholder"></span>
+                                                    </div></td>
+                                                <td><pre><code class="html">&lt;div class="form-group pb-0"&gt;&lt;!-- input error 시 class error 추가 --&gt;
+    &lt;strong class="input-label"&gt;Label&lt;/strong&gt;
+    &lt;span class="f-text"&gt;&lt;input type="text" placeholder="placeholder"&gt;&lt;/span&gt;
+&lt;/div&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="form-group search">
+                                                        <span class="f-text"><input type="text" placeholder="placeholder"></span>
+                                                        <button class="btn-icon clear e-clear-input"></button>
+                                                    </div></td>
+                                                <td><pre><code class="html">&lt;div class="form-group search"&gt;
+    &lt;span class="f-text"&gt;&lt;input type="text" placeholder="placeholder"&gt;&lt;/span&gt;
+    &lt;button class="btn-icon clear e-clear-input"&gt;&lt;/button&gt;
+&lt;/div&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="form-group select">
+                                                        <span class="f-text">
+                                                            <input type="text" placeholder="placeholder" id="mailDomain" readonly>
+                                                            <a href="#layerChooseDomain" class="btn-trigger e-layer"></a>
+                                                        </span>
+                                                    </div></td>
+                                                <td><pre><code class="html">&lt;div class="form-group select"&gt;
+    &lt;span class="f-text"&gt;
+        &lt;input type="text" placeholder="placeholder" id="mailDomain" readonly&gt;
+        &lt;a href="#layerChooseDomain" class="btn-trigger e-layer"&gt;&lt;/a&gt;
+    &lt;/span&gt;
+&lt;/div&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="form-group jumin">
+                                                        <strong class="input-label">주민등록번호</strong>
+                                                        <span class="f-text">
+                                                            <input  type="tel" pattern="[0-9]*" inputmode="numeric" placeholder="주민번호 앞자리" maxlength="6">
+                                                            <span>ㅡ</span>
+                                                            <input type="tel" pattern="[0-9]*" inputmode="numeric" placeholder="주민번호 뒷자리" maxlength="7" class="text-security">
+                                                            <button type="button" class="btn-icon masking e-jumin-masking" title="가려진 뒷자리 보기"></button>
+                                                        </span>
+                                                        <p class="text-error">주민번호를 다시 확인해주세요.</p>
+                                                    </div>
+                                                </td>
+                                                <td><pre><code class="html">&lt;div class="form-group select"&gt;
+    &lt;span class="f-text"&gt;
+        &lt;input type="text" placeholder="placeholder" id="mailDomain" readonly&gt;
+        &lt;a href="#layerChooseDomain" class="btn-trigger e-layer"&gt;&lt;/a&gt;
+    &lt;/span&gt;
+&lt;/div&gt;</code></pre></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="section">
+                            <h2>file-wrap</h2>
+                            <div class="card">
+                                <div class="file-wrap">
+                                    <!-- 첨부 파일이 없을 경우 -->
+                                    <div class="empty">
+                                        <input type="file" id="file" class="blind"><label for="file"><i class="icon camera"></i>첨부파일이 없습니다.<br>해당 영역을 터치한 후 이미지를 첨부해주세요.</label>
+                                    </div>
+                                    <!-- 첨부 파일이 있을 경우 -->
+                                    <div class="has">
+                                        <ul class="list-file">
+                                            <!-- 이미지 첨부시 -->
+                                            <li class="form-file">
+                                                <span class="inner attached"><!-- 파일 추가 시 attached class 추가 -->
+                                                    <img src="https://i.pinimg.com/originals/f0/d3/c4/f0d3c4a2f421044f0fe6ade7bec2b9ab.png" alt="">
+                                                    <a href="#layerDeleteFile" class="btn-icon delete-file" title="첨부 파일 삭제"></a>
+                                                </span>
+                                            </li><!-- // 이미지 첨부시 -->
+                                            <!-- 파일이 pdf일 경우 -->
+                                            <li class="form-file">
+                                                <span class="inner attached pdf"><!-- 파일 추가 시 attached class 추가, pdf 일 경우 pdf 클래스 추가, img 태그 삭제 -->
+                                                    <a href="#layerDeleteFile" class="btn-icon delete-file" title="첨부 파일 삭제"></a>
+                                                </span>
+                                            </li><!-- //파일이 pdf일 경우 -->
+                                            <li class="form-file">
+                                                <span class="inner">
+                                                    <input type="file" id="file3" class="blind">
+                                                    <label for="file3"><span class="blind">첨부하기</span></label>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="code">
+                                    <pre><code class="html">&lt;div class="file-wrap"&gt;
+    &lt;!-- 첨부 파일이 없을 경우 --&gt;
+    &lt;div class="empty"&gt;
+        &lt;input type="file" id="file" class="blind"&gt;&lt;label for="file"&gt;&lt;i class="icon camera"&gt;&lt;/i&gt;첨부파일이 없습니다.&lt;br&gt;해당 영역을 터치한 후 이미지를 첨부해주세요.&lt;/label&gt;
+    &lt;/div&gt;
+    &lt;!-- 첨부 파일이 있을 경우 --&gt;
+    &lt;div class="has"&gt;
+        &lt;ul class="list-file"&gt;
+            &lt;!-- 이미지 첨부시 --&gt;
+            &lt;li class="form-file"&gt;
+                &lt;span class="inner attached"&gt;&lt;!-- 파일 추가 시 attached class 추가 --&gt;
+                    &lt;img src="https://i.pinimg.com/originals/f0/d3/c4/f0d3c4a2f421044f0fe6ade7bec2b9ab.png" alt=""&gt;
+                    &lt;a href="#layerDeleteFile" class="btn-icon delete-file" title="첨부 파일 삭제"&gt;&lt;/a&gt;
+                &lt;/span&gt;
+            &lt;/li&gt;&lt;!-- // 이미지 첨부시 --&gt;
+            &lt;!-- 파일이 pdf일 경우 --&gt;
+            &lt;li class="form-file"&gt;
+                &lt;span class="inner attached pdf"&gt;&lt;!-- 파일 추가 시 attached class 추가, pdf 일 경우 pdf 클래스 추가, img 태그 삭제 --&gt;
+                    &lt;a href="#layerDeleteFile" class="btn-icon delete-file" title="첨부 파일 삭제"&gt;&lt;/a&gt;
+                &lt;/span&gt;
+            &lt;/li&gt;&lt;!-- //파일이 pdf일 경우 --&gt;
+            &lt;li class="form-file"&gt;
+                &lt;span class="inner"&gt;
+                    &lt;input type="file" id="file3" class="blind"&gt;
+                    &lt;label for="file3"&gt;&lt;span class="blind"&gt;첨부하기&lt;/span&gt;&lt;/label&gt;
+                &lt;/span&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+        </code></pre>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="badge" class="section">
+                            <h2>Badge</h2>
+                            <div class="card">
+                                <div class="table-layout">
+                                    <table>
+                                        <colgroup>
+                                            <col style="width:200px">
+                                            <col style="width:auto">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <td><em class="badge nodata">nodata</em></td>
+                                                <td><pre><code class="html">&lt;em class="badge nodata"&gt;nodata&lt;/em&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><em class="badge success">success</em></td>
+                                                <td><pre><code class="html">&lt;em class="badge success"&gt;success&lt;/em&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><em class="badge error">error</em></td>
+                                                <td><pre><code class="html">&lt;em class="badge error"&gt;error&lt;/em&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><em class="badge proceeding">proceeding</em></td>
+                                                <td><pre><code class="html">&lt;em class="badge proceeding"&gt;proceeding&lt;/em&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><em class="badge small nodata">small nodata</em></td>
+                                                <td><pre><code class="html">&lt;em class="badge small nodata"&gt;small nodata&lt;/em&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><em class="badge small success">small success</em></td>
+                                                <td><pre><code class="html">&lt;em class="badge small success"&gt;small success&lt;/em&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><em class="badge small error">small error</em></td>
+                                                <td><pre><code class="html">&lt;em class="badge small error"&gt;small error&lt;/em&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><em class="badge small proceeding">small proceeding</em></td>
+                                                <td><pre><code class="html">&lt;em class="badge small proceeding"&gt;small proceeding&lt;/em&gt;</code></pre></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="tab" class="section">
+                            <h2>Tab</h2>
+                            <p class="desc">페이지 이동 시 e-tab 삭제</p>
+                            <h3>:not</h3>
+                            <div class="card">
+                                <div class="module-tab flex e-tab">
+                                    <div class="tab">
+                                        <ul>
+                                            <li class="on"><a href="#con01">tab01</a></li>
+                                            <li><a href="#con02">tabtabtab02</a></li>
+                                            <li><a href="#con03">tabtab03</a></li>
+                                        </ul>
+                                        <span class="tab-point"></span>
+                                    </div>
+                                    <div class="tab-content on" id="con01">1</div>
+                                    <div class="tab-content" id="con02">2</div>
+                                    <div class="tab-content" id="con03">3</div>
+                                </div>
+
+                                <div class="code">
+                                    <pre><code class="html">&lt;div class="module-tab flex e-tab"&gt;
+        &lt;div class="tab"&gt;
+            &lt;ul&gt;
+                &lt;li class="on"&gt;&lt;a href="#con01"&gt;tab01&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#con02"&gt;tabtabtab02&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#con03"&gt;tabtab03&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;span class="tab-point"&gt;&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class="tab-content on" id="con01"&gt;1&lt;/div&gt;
+        &lt;div class="tab-content" id="con02"&gt;2&lt;/div&gt;
+        &lt;div class="tab-content" id="con03"&gt;3&lt;/div&gt;
+    &lt;/div&gt;</code></pre>
+                                </div>
+                            </div>
+
+                            <h3>type-solid</h3>
+                            <div class="card">
+                                <div class="module-tab type-solid e-tab">
+                                    <div class="tab">
+                                        <ul>
+                                            <li class="on"><a href="#con11">tab01</a></li>
+                                            <li><a href="#con12">tabtabtab02</a></li>
+                                        </ul>
+                                        <span class="tab-point"></span>
+                                    </div>
+                                    <div class="tab-content on" id="con11">1</div>
+                                    <div class="tab-content" id="con12">2</div>
+                                </div>
+
+                                <div class="code">
+                                    <pre><code class="html">&lt;div class="module-tab type-solid e-tab"&gt;
+        &lt;div class="tab"&gt;
+            &lt;ul&gt;
+                &lt;li class="on"&gt;&lt;a href="#con11"&gt;tab01&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#con12"&gt;tabtabtab02&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;span class="tab-point"&gt;&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class="tab-content on" id="con11"&gt;1&lt;/div&gt;
+        &lt;div class="tab-content" id="con12"&gt;2&lt;/div&gt;
+    &lt;/div&gt;</code></pre>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="tooltip" class="section">
+                            <h2>Tooltip</h2>
+                            <h3>right</h3>
+                            <div class="card">
+                                <div class="module-tooltip" style="margin-left: 40%;">
+                                    <a href="javascript:;" class="btn-icon tooltip e-tooltip"></a>
+                                    <div class="content right">
+                                        <p>필수정보는 변경 불가합니다.<br>고객센터로 문의해주세요.</p>
+                                    </div>
+                                </div>
+                                <div class="code">
+                                    <pre><code class="html">&lt;div class="module-tooltip"&gt;
+    &lt;a href="javascript:;" class="btn-icon tooltip e-tooltip"&gt;&lt;/a&gt;
+    &lt;div class="content right"&gt;
+        &lt;p&gt;필수정보는 변경 불가합니다.&lt;br&gt;고객센터로 문의해주세요.&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+                                </div>
+                            </div>
+                            <h3>left</h3>
+                            <div class="card">
+                                <div class="module-tooltip" style="margin-left: 40%;">
+                                    <a href="javascript:;" class="btn-icon tooltip e-tooltip"></a>
+                                    <div class="content left">
+                                        <p>필수정보는 변경 불가합니다.<br>고객센터로 문의해주세요.</p>
+                                    </div>
+                                </div>
+                                <div class="code">
+                                    <pre><code class="html">&lt;div class="module-tooltip"&gt;
+    &lt;a href="javascript:;" class="btn-icon tooltip e-tooltip"&gt;&lt;/a&gt;
+    &lt;div class="content left"&gt;
+        &lt;p&gt;필수정보는 변경 불가합니다.&lt;br&gt;고객센터로 문의해주세요.&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+                                </div>
+                            </div>
+                            <h3>bottom</h3>
+                            <div class="card">
+                                <div class="module-tooltip" style="margin-left: 40%;">
+                                    <a href="javascript:;" class="tooltip e-tooltip">text trigger</a>
+                                    <div class="content bottom">
+                                        <p>필수정보는 변경 불가합니다.<br>고객센터로 문의해주세요.</p>
+                                    </div>
+                                </div>
+                                <div class="code">
+                                    <pre><code class="html">&lt;div class="module-tooltip"&gt;
+    &lt;a href="javascript:;" class="tooltip e-tooltip"&gt;text&lt;/a&gt;
+    &lt;div class="content bottom"&gt;
+        &lt;p&gt;필수정보는 변경 불가합니다.&lt;br&gt;고객센터로 문의해주세요.&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+    </code></pre>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="dl" class="section">
+                            <h2>좌우 정렬 목록</h2>
+                            <div class="card">
+                                <ul class="module-dl">
+                                    <li><strong>이름</strong><span>홍길동</span></li>
+                                    <li><strong>생년월일</strong><span>1979년 11월 17일</span></li>
+                                    <li><a href="javascript:;"><strong>소속</strong><span>에이씨플러스에셋</span></a></li>
+                                    <li><strong>휴대폰번호</strong><span><a href="" class="btn btn-normal small">변경하기</a></span></li>
+                                </ul>
+                                <div class="code">
+                                    <pre><code class="html">&lt;ul class="module-dl"&gt;
+            &lt;li&gt;&lt;strong&gt;이름&lt;/strong&gt;&lt;span&gt;홍길동&lt;/span&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;strong&gt;생년월일&lt;/strong&gt;&lt;span&gt;1979년 11월 17일&lt;/span&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="javascript:;"&gt;&lt;strong&gt;소속&lt;/strong&gt;&lt;span&gt;에이씨플러스에셋&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;strong&gt;휴대폰번호&lt;/strong&gt;&lt;span&gt;&lt;a href="" class="btn btn-normal small"&gt;변경하기&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;
+        &lt;/ul&gt;</code></pre>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="table" class="section">
+                            <h2>Table</h2>
+                            <div class="card">
+                                <div class="module-table">
+                                    <table>
+                                        <colgroup>
+                                            <col style="width: 20%">
+                                            <col style="width: 35%">
+                                            <col style="width: 45%">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">번호</th>
+                                                <th scope="col">고객명</th>
+                                                <th scope="col" class="align-right">광고비</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>홍길*</td>
+                                                <td class="align-right">20,000원</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="code">
+                                    <pre><code class="html">&lt;div class="module-table"&gt;
+        &lt;table&gt;
+            &lt;colgroup&gt;
+                &lt;col style="width: 20%"&gt;
+                &lt;col style="width: 35%"&gt;
+                &lt;col style="width: 45%"&gt;
+            &lt;/colgroup&gt;
+            &lt;thead&gt;
+                &lt;tr&gt;
+                    &lt;th scope="col"&gt;번호&lt;/th&gt;
+                    &lt;th scope="col"&gt;고객명&lt;/th&gt;
+                    &lt;th scope="col" class="align-right"&gt;광고비&lt;/th&gt;
+                &lt;/tr&gt;
+            &lt;/thead&gt;
+            &lt;tbody&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;1&lt;/td&gt;
+                    &lt;td&gt;홍길*&lt;/td&gt;
+                    &lt;td class="align-right"&gt;20,000원&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/tbody&gt;
+        &lt;/table&gt;
+    &lt;/div&gt;</code></pre>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="yearmonth" class="section">
+                            <h2>년/월 선택</h2>
+                            <div class="card">
+                                <input type="text" id="trigger2" placeholder="년/월 선택" readonly>
+                                <div class="code">
+                                    <pre><code class="html">&lt;input type="text" id="trigger2" placeholder="년/월 선택" readonly&gt;</code></pre>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="logo" class="section">
+                            <h2>[logo]</h2>
+                            <h3>- 은행</h3>
+                            <div class="card">
+                                <div class="table-layout">
+                                    <table>
+                                        <colgroup>
+                                            <col style="width:35px">
+                                            <col style="width:auto">
+                                            <col style="width:35px">
+                                            <col style="width:auto">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <td><i class="icon bank kakaobank"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank kakaobank"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank nh"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank nh"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank shinhan"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank shinhan"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank ibk"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank ibk"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank hana"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank hana"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank woori"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank woori"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank kb"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank kb"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank sc"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank sc"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank daegu"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank daegu"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank busan"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank busan"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank gwangju"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank gwangju"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank mg"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank mg"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank kyungnam"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank kyungnam"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank jeonbuk"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank jeonbuk"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank jeju"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank jeju"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank kdb"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank kdb"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank post"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank post"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank cu"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank cu"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank suhyup"></i></td>
+                                                <td><pre><code>&lt;i class="icon bank suhyup"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank citi"></i></td>
+                                                <td><pre><code>&lt;i class="icon bank citi"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank kbank"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank kbank"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank deutsche"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank deutsche"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank boa"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank boa"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank bnp"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank bnp"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank icbc"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank icbc"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank hsbc"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank hsbc"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank jp"></i></td>
+                                                <td><pre><code>&lt;i class="icon bank jp"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank nfcf"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank nfcf"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank mutual"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank mutual"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <h3>- 증권사</h3>
+                            <div class="card">
+                                <div class="table-layout">
+                                    <table>
+                                        <colgroup>
+                                            <col style="width:35px">
+                                            <col style="width:auto">
+                                            <col style="width:35px">
+                                            <col style="width:auto">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <td><i class="icon bank kakaopay"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank kakaopay"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank kyobo"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank kyobo"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank daishin"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank daishin"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank db"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank db"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank meritz"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank meritz"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank miraeassetdaewoo"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank miraeassetdaewoo"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank bookook"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank bookook"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank samsung"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank samsung"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank shinyoung"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank shinyoung"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank shinhan"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank shinhan"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank eugenefn"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank eugenefn"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank yuanta"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank yuanta"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank ebest"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank ebest"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank cape"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank cape"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank kiwoom"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank kiwoom"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank fosskorea"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank fosskorea"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank nhqv"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank nhqv"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank hanaw"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank hanaw"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank hiib"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank hiib"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank truefriend"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank truefriend"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank hanwhawm"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank hanwhawm"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank hmsec"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank hmsec"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank kbsec"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank kbsec"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td><i class="icon bank ktb"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank ktb"&gt;&lt;/i&gt;</code></pre></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon bank sks"></i></td>
+                                                <td><pre><code class="html">&lt;i class="icon bank sks"&gt;&lt;/i&gt;</code></pre></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- custom password -->
+                        <section id="passkey" class="section">
+                            <h2>비밀번호 키패드</h2>
+                            <div class="card">
+                                <div class="pass-key" style="margin: 30px -24px 0;">
+                                    <div class="module-password">
+                                        <input type="password" id="password" value="" maxlength="4" readonly hidden>
+                                        <div class="dots">
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                    </div>
+                                    <div class="module-keypad" style="position: relative; margin-top:40px;">
+                                        <div class="number">
+                                            <button type="button" class="key" data-number="0">0</button>
+                                            <button type="button" class="key" data-number="1">1</button>
+                                            <button type="button" class="key" data-number="2">2</button>
+                                            <button type="button" class="key" data-number="3">3</button>
+                                            <button type="button" class="key" data-number="4">4</button>
+                                            <button type="button" class="key" data-number="5">5</button>
+                                            <button type="button" class="key" data-number="6">6</button>
+                                            <button type="button" class="key" data-number="7">7</button>
+                                            <button type="button" class="key" data-number="8">8</button>
+                                            <button type="button" class="key" data-number="9">9</button>
+                                        </div>
+                                        <div class="delete">
+                                            <button type="button" class="btn-delete_all">전체삭제</button>
+                                            <button type="button" class="btn-delete_one" title="한글자삭제"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="code">
+                                    <pre><code class="html">&lt;div class="pass-key"&gt;
+        &lt;div class="module-password"&gt;
+            &lt;input type="password" id="password" value="" maxlength="4" readonly hidden&gt;
+            &lt;div class="dots"&gt;
+                &lt;span class="dot"&gt;&lt;/span&gt;
+                &lt;span class="dot"&gt;&lt;/span&gt;
+                &lt;span class="dot"&gt;&lt;/span&gt;
+                &lt;span class="dot"&gt;&lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="module-keypad" style="position: relative; margin-top:40px;"&gt;
+            &lt;div class="number"&gt;
+                &lt;button type="button" class="key" data-number="0"&gt;0&lt;/button&gt;
+                &lt;button type="button" class="key" data-number="1"&gt;1&lt;/button&gt;
+                &lt;button type="button" class="key" data-number="2"&gt;2&lt;/button&gt;
+                &lt;button type="button" class="key" data-number="3"&gt;3&lt;/button&gt;
+                &lt;button type="button" class="key" data-number="4"&gt;4&lt;/button&gt;
+                &lt;button type="button" class="key" data-number="5"&gt;5&lt;/button&gt;
+                &lt;button type="button" class="key" data-number="6"&gt;6&lt;/button&gt;
+                &lt;button type="button" class="key" data-number="7"&gt;7&lt;/button&gt;
+                &lt;button type="button" class="key" data-number="8"&gt;8&lt;/button&gt;
+                &lt;button type="button" class="key" data-number="9"&gt;9&lt;/button&gt;
+            &lt;/div&gt;
+            &lt;div class="delete"&gt;
+                &lt;button type="button" class="btn-delete_all"&gt;전체삭제&lt;/button&gt;
+                &lt;button type="button" class="btn-delete_one" title="한글자삭제"&gt;&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;</code></pre>
+                                </div>
+                            </div>
+                        </section>
+
+
+                        <section id="calculate" class="section">
+                            <h2>정산목록</h2>
+                            <div class="card">
+                                <a href="javascript:;" class="module-calculate">
+                                    <span class="date">2021년 1월(기간: 12.01~12.31)</span>
+                                    <strong class="price">0원</strong>
+                                    <em class="badge small nodata">내역없음</em>
+                                </a>
+                                <div class="code">
+                                    <pre><code class="html">&lt;a href="javascript:;" class="module-calculate"&gt;
+        &lt;span class="date"&gt;2021년 1월(기간: 12.01~12.31)&lt;/span&gt;
+        &lt;strong class="price"&gt;0원&lt;/strong&gt;
+        &lt;em class="badge small nodata"&gt;내역없음&lt;/em&gt;
+    &lt;/a&gt;</code></pre>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="insu" class="section">
+                            <h2>보험 목록</h2>
+                            <div class="card">
+                                <div class="module-insu">
+                                    <dl>
+                                        <dt>
+                                            <img src="./resources/img/@logo_insu_inbyu.png" alt="INBYU">
+                                        </dt>
+                                        <dd>
+                                            <div class="detail">
+                                                <strong class="name">다이렉트 자동차보험 (자동차보험료 가격비교)</strong>
+                                                <p class="desc">여러 보험사를 한 번에 비교해 최적가로 가입하세요!</p>
+                                            </div>
+                                            <div class="ad">
+                                                <span class="badge tiny normal">광고비</span>
+                                                <em class="num">4.5%</em>
+                                            </div>
+                                            <div class="event">
+                                                <span class="icon"><img src="https://i.pinimg.com/originals/72/37/bb/7237bbb34821b511f3163aa181e1a9ce.png" alt="icon" style="width: 24px;"></span>
+                                                <p class="text-ellipsis">자동차 보험 가입하고, 3만원 상품권 Get!!</p>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <a href="javascript:;" class="btn btn-normal">보험상품 링크 공유하기</a>
+                                </div>
+                                <div class="code">
+                                    <pre><code class="html">&lt;div class="module-insu"&gt;
+        &lt;dl&gt;
+            &lt;dt&gt;
+                &lt;img src="./resources/img/@logo_insu_inbyu.png" alt="INBYU"&gt;
+            &lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;div class="detail"&gt;
+                    &lt;strong class="name"&gt;다이렉트 자동차보험 (자동차보험료 가격비교)&lt;/strong&gt;
+                    &lt;p class="desc"&gt;여러 보험사를 한 번에 비교해 최적가로 가입하세요!&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div class="ad"&gt;
+                    &lt;span class="badge tiny normal"&gt;광고비&lt;/span&gt;
+                    &lt;em class="num"&gt;4.5%&lt;/em&gt;
+                &lt;/div&gt;
+                &lt;div class="event"&gt;
+                    &lt;span class="icon"&gt;&lt;img src="https://i.pinimg.com/originals/72/37/bb/7237bbb34821b511f3163aa181e1a9ce.png" alt="icon" style="width: 24px;"&gt;&lt;/span&gt;
+                    &lt;p class="text-ellipsis"&gt;자동차 보험 가입하고, 3만원 상품권 Get!!&lt;/p&gt;
+                &lt;/div&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+        &lt;a href="javascript:;" class="btn btn-normal"&gt;보험상품 링크 공유하기&lt;/a&gt;
+    &lt;/div&gt;</code></pre>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+                <!-- <div class="area-button fixed">
+                    <a href="javascript:;" class="btn btn-primary">fixed &gt; btn-primary</a>
+                </div> -->
+            </div>
+
+        </div>
+
+
+        <!-- layer: 회사 선택 -->
+        <section class="layer full layer-company_list" id="layerCompanyList">
+            <div class="container">
+                <div class="head-button">
+                    <a href="javascript:;" class="btn btn-close e-close"></a>
+                </div>
+                <div class="content p-reset">
+                    <header class="head">
+                        <h2>회사를 선택해주세요.</h2>
+                    </header>
+
+                    <div class="form-search">
+                        <input type="text" placeholder="사명 또는 초성 검색" id="searchCompany">
+                    </div>
+
+                    <!-- 검색 결과 -->
+                    <div class="result-area">
+                        <ul>
+                            <li><input type="radio"><label for="">ㄴ회사 1</label></li>
+                            <li><input type="radio"><label for="">ㄴ회사 2</label></li>
+                            <li><input type="radio"><label for="">ㄴ회사 3</label></li>
+                        </ul>
+                    </div><!-- //검색 결과 -->
+
+                    <!-- 전체 목록 -->
+                    <div class="module-company">
+                        <div class="list-radio company">
+                            <ul id="letter-none">
+                                <li><input type="radio"><label for="">소속된 회사 없음</label></li>
+                            </ul>
+                            <ul id="letter-giyeok">
+                                <li><input type="radio"><label for="">ㄱ회사 1</label></li>
+                                <li><input type="radio"><label for="">ㄱ회사 2</label></li>
+                                <li><input type="radio"><label for="">ㄱ회사 3</label></li>
+                            </ul>
+                            <ul id="letter-nieun">
+                                <li><input type="radio"><label for="">ㄴ회사 1</label></li>
+                                <li><input type="radio"><label for="">ㄴ회사 2</label></li>
+                                <li><input type="radio"><label for="">ㄴ회사 3</label></li>
+                            </ul>
+                            <ul id="letter-digeut">
+                                <li><input type="radio"><label for="">ㄷ회사 1</label></li>
+                                <li><input type="radio"><label for="">ㄷ회사 2</label></li>
+                                <li><input type="radio"><label for="">ㄷ회사 3</label></li>
+                            </ul>
+                            <ul id="letter-rieul">
+                                <li><input type="radio"><label for="">ㄹ회사 1</label></li>
+                                <li><input type="radio"><label for="">ㄹ회사 2</label></li>
+                                <li><input type="radio"><label for="">ㄹ회사 3</label></li>
+                            </ul>
+                            <ul id="letter-mieum">
+                                <li><input type="radio"><label for="">ㅁ회사 1</label></li>
+                            </ul>
+                            <ul id="letter-bieup">
+                                <li><input type="radio"><label for="">ㅂ회사 1</label></li>
+                            </ul>
+                            <ul id="letter-siot">
+                                <li><input type="radio"><label for="">ㅅ회사 1</label></li>
+                            </ul>
+                            <ul id="letter-ieung">
+                                <li><input type="radio"><label for="">ㅇ회사 1</label></li>
+                            </ul>
+                            <ul id="letter-jieut">
+                                <li><input type="radio"><label for="">ㅈ회사 1</label></li>
+                            </ul>
+                            <ul id="letter-chieut">
+                                <li><input type="radio"><label for="">ㅊ회사 1</label></li>
+                            </ul>
+                            <ul id="letter-kieuk">
+                                <li><input type="radio"><label for="">ㅋ회사 1</label></li>
+                            </ul>
+                            <ul id="letter-tieut">
+                                <li><input type="radio"><label for="">ㅌ회사 1</label></li>
+                            </ul>
+                            <ul id="letter-pieup">
+                                <li><input type="radio"><label for="">ㅍ회사 1</label></li>
+                            </ul>
+                            <ul id="letter-hieut">
+                                <li><input type="radio"><label for="">ㅎ회사 1</label></li>
+                            </ul>
+                        </div>
+                        <div class="shortcuts" id="shortcuts">
+                            <ul>
+                                <li><a href="#letter-giyeok">ㄱ</a></li>
+                                <li><a href="#letter-nieun">ㄴ</a></li>
+                                <li><a href="#letter-digeut">ㄷ</a></li>
+                                <li><a href="#letter-rieul">ㄹ</a></li>
+                                <li><a href="#letter-mieum">ㅁ</a></li>
+                                <li><a href="#letter-bieup">ㅂ</a></li>
+                                <li><a href="#letter-siot">ㅅ</a></li>
+                                <li><a href="#letter-ieung">ㅇ</a></li>
+                                <li><a href="#letter-jieut">ㅈ</a></li>
+                                <li><a href="#letter-chieut">ㅊ</a></li>
+                                <li><a href="#letter-kieuk">ㅋ</a></li>
+                                <li><a href="#letter-tieut">ㅌ</a></li>
+                                <li><a href="#letter-pieup">ㅍ</a></li>
+                                <li><a href="#letter-hieut">ㅎ</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- //전체 목록 -->
+
+                </div>
+            </div>
+        </section><!-- //layer: 회사 선택 -->
+
+        <!-- Bottom  -->
+        <section class="layer bottom layer-choose_domain" id="layerChooseDomain">
+            <div class="container">
+                <div class="wrapping">
+                    <header class="head">
+                        <h2 class="text-headline-6">회사를 선택해주세요.</h2>
+                    </header>
+                    <div class="content">
+                        <ul class="list-radio">
+                            <li><input type="radio" id="kakao" name="chooseDomain"><label for="kakao">kakao.com</label></li>
+                            <li><input type="radio" id="hanmail" name="chooseDomain"><label for="hanmail">hanmail.net</label></li>
+                            <li><input type="radio" id="gmail" name="chooseDomain"><label for="gmail">gmail.com</label></li>
+                            <li><input type="radio" id="naver" name="chooseDomain"><label for="naver">naver.com</label></li>
+                            <li><input type="radio" id="nate" name="chooseDomain"><label for="nate">nate.com</label></li>
+                            <li><input type="radio" id="directly" name="chooseDomain"><label for="directly">기타(직접입력)</label></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="area-button">
+                    <button type="button" class="btn btn-text e-close">닫기</button>
+                </div>
+            </div>
+            <div class="dimmed"></div>
+        </section><!-- //layer: 메일 선택  -->
+
+        <!-- Center  -->
+        <section class="layer center" id="layerCenter">
+            <div class="container">
+                <div class="content">
+                    <header class="head">
+                        <h2>안내문구</h2>
+                    </header>
+                    <div>
+                        <p>본 서비스를 이용하려면<br>알림설정을 허용해야합니다.<br>이동하시겠습니까?</p>
+                    </div>
+                </div>
+                <div class="area-button">
+                    <button type="button" class="btn btn-secondary e-close">닫기</button>
+                    <button type="button" class="btn btn-primary e-close">확인</button>
+                </div>
+            </div>
+            <div class="dimmed"></div>
+        </section>
+
+<!-- 
+        <div class="table-layout">
+            <table>
+                <colgroup>
+                    <col style="width:200px">
+                    <col style="width:auto">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td><pre><code></code></pre></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><pre><code></code></pre></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> 
+    -->
+
+        <!-- ui관련 js -->
+        <script src="./resources/js/event.js"></script>
+        <!-- <script src="./resources/js/event_vanilla.js"></script> -->
+        <script>
+            $(function() {
+                const $window = window.$window || $(window);
+                const $body = $('body');
+
+                // hljs.highlightAll();
+
+                // indicator 호출
+                // showIndicator();
+                // hideIndicator();
+
+                // custom password
+                const $passwordInput = $('#password');
+                countValueLength($passwordInput);
+
+                $body.on('click', '.module-keypad .delete button', function(e) {
+                    const $this = $(this);
+
+                    $this.hasClass('btn-delete_all') ? clearLetters($passwordInput) : deleteOneLetter($passwordInput);
+                    countValueLength($passwordInput);
+                });
+
+                $body.on('click', '.module-keypad .key', function(e) {
+                    const num = $(this).data('number');
+                    const maxLength = $passwordInput.attr('maxlength');
+                    let currentValue = $passwordInput.val();
+                    currentValue.length + 1 <= maxLength ?  $($passwordInput).val(currentValue + num) : $($passwordInput).val(currentValue);
+                    
+                    countValueLength($passwordInput);
+                });
+
+                // 주민번호 뒷자리 마스킹
+                // $body.on('keydown', '.jumin .masking input', function(e) {
+                //     const thisInput = $(e.target);
+                //     const num = $(this).data('number');
+                //     const maxLength = thisInput.attr('maxlength');
+                //     let currentValue = thisInput.val(),
+                //         valLength = currentValue.length,
+                //         dots = $('.form-group.jumin .dots');
+                //     const dot = "<span class='dot'></span>";
+
+                //     valLength >= maxLength ? valLength = valLength - 1 : '';
+
+                //     if(e.keyCode == 8 || e.keyCode == 46) {
+                //         $(dots).find('.dot').last().remove();
+                //     } else {
+                //         $(dots).find('.dot').remove();
+                //         for(let i = 0; i < valLength ; i ++) {
+                //             $(dots).append(dot);
+                //         }
+                //     }
+                    // valLength <= 0 ? valLength = 0 : valLength - 1;
+                    
+                    // if(e.keyCode == 8 || e.keyCode == 46) {
+                    //     for(let i = 1; i < valLength; i ++) {
+                    //         $(dots).append(dot);
+                    //     }
+                    // } else {
+                    //     for(let i = 1; i < valLength; i ++) {
+                    //         $(dots).append(dot);
+                    //     }
+                    // }
+                    // console.log(valLength);
+                    // for(let i = 1; i < valLength; i ++) {
+                    //     $(dots).append(dot);
+                    // }
+                    
+                // });
+
+                // 회사 검색
+                $body.on('keyup', '#searchCompany', function(e) {
+                    const $this = $(this),
+                          $result = $($('.result-area'));
+                    let hasValue = $this.val().length > 0;
+                    
+                    hasValue ? $result.addClass('show') : $result.removeClass('show');
+                });
+
+                // 메일 도메인 직접 입력
+                $body.on('click', 'input[name="chooseDomain"]', function(){
+                    const $this = $(this),
+                          $input = $('#mailDomain'),
+                          $findParentLayer = $(this).closest('.layer'),
+                          $findParentWrap = $($input.closest('.form-group'));
+                    let checkedMailVal = $this.siblings('label').text();
+                    let isDirectly = ($this.attr('id') == 'directly');
+
+                    if(!isDirectly) {
+                        $findParentWrap.removeClass('over');
+                        $input.val(checkedMailVal).prop('readonly', true);
+                    } else {
+                        $findParentWrap.addClass('over');
+                        $input.val('').attr('placeholder', checkedMailVal).prop('readonly', false).focus();
+                    }
+
+                    closeLayer($findParentLayer);
+                });
+
+                // 년/월 선택
+                var yearArr = ['2020', '2021'];
+                var monthArr = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+                var mobileSelect2 = new MobileSelect({
+                    trigger: '#trigger2',
+                    title: '',
+                    wheels: [{ data: yearArr }, { data: monthArr }],
+                    position: [1, 2],
+                    transitionEnd: function (indexArr, data) {
+                        //console.log(data);
+                    },
+                    callback: function (indexArr, data) {
+                        // console.log(data);
+                    },
+                });
+            });
+
+            // tab decoration: 페이지 로딩 시 필수 추가
+            $(window).on('load', function(e) {
+                let tabWraps = $('.module-tab');
+
+                $.each(tabWraps, function(index, tabWrap) {
+                    let tabs = $(tabWrap).find('.tab a');
+
+                    $.each(tabs, function(index, tab) {
+                        if($(tab).closest('li').hasClass('on')) {
+                            let tabItemWidth = $(tab).width(),
+                                tabItemPositionLeft = $(tab).closest('li').position().left + $(tab).scrollLeft();
+
+                            tabDeco(tabWrap, tabItemWidth, tabItemPositionLeft);
+                        }
+                    });
+                });
+            });
+        </script>
+
+        <script>// guide page scroll memory
+
+        $(function() {
+            let guideScrollTop;
+            $('#contents').on('scroll', function() {
+                guideScrollTop = $('#contents').scrollTop();
+                localStorage.setItem('guideScrollTop', guideScrollTop);
+            });
+        });
+
+        window.onload = function() {
+            setTimeout (function () {
+                let localStorageGuideScrollTop = localStorage.getItem('guideScrollTop');
+                $('#contents').scrollTop(localStorageGuideScrollTop);
+            },0);
+        }
+        </script>
+    </body>
+</html>

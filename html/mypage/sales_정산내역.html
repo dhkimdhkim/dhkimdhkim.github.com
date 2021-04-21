@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, viewport-fit=cover, initial-scale=1.0" />
+        <meta name="title" content="인바이유" />
+        <meta name="author" content="inbyu" />
+        <meta name="copyright" content="inbyu" />
+        <title>인바이유</title>
+        <link rel="stylesheet" href="../../resources/css/common.css" />
+        <script src="../../resources/js/lib/jquery-3.3.1.min.js"></script>
+        <style>
+        </style>
+    </head>
+    <body>
+        <!-- 이 페이지는 모바일기기의 상태바의 컬러가 #ffeb00 이어야 합니다.(로건과 이야기는 되어있어요.) -->
+        <div class="wrap page-ad_perfomance" id="wrap">
+            <div class="head-button">
+                <a href="javascript:history.back();" class="btn-icon back"></a>
+                <div class="module-tab type-solid">
+                    <div class="tab">
+                        <ul>
+                            <li><a href="javascript:;">광고실적</a></li>
+                            <li class="on"><a href="javascript:;">정산내역</a></li>
+                        </ul>
+                        <span class="tab-point"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="container" id="container">
+                <div class="section-ad_total">
+                    <h1 class="blind">정산내역</h1>
+                    <div class="period">2021년 2월(실적기간 : 2021.01.01 ~ 01.31)</div>
+                    <strong class="price">5,472,530원</strong>
+                    <!-- ** 상태값 노출 뱃지
+                        내역없음: <em class="badge success">내역없음</em>
+                        계좌 미등록: 
+                                <div class="module-tooltip show">
+                                    <em class="badge error">계좌 미등록</em>
+                                    <div class="content bottom">
+                                        <p>정산금액을 입금받기 위해선<br>마이페이지에서 정산계좌를<br>정확히 등록해주세요 :D</p>
+                                        <button type="button" class="btn-icon close wh-16 e-tooltip"></button>
+                                    </div>
+                                </div>
+                        정산금액 집계중:
+                                <div class="module-tooltip show">
+                                    <em class="badge proceeding">정산금액 집계중</em>
+                                    <div class="content bottom">
+                                        <p>이번 달 입금받으실 정산금액은<br>25일부터 확인하실 수 있어요:D</p>
+                                        <button type="button" class="btn-icon close wh-16 e-tooltip"></button>
+                                    </div>
+                                </div>
+                        입금대기: 
+                                <div class="module-tooltip show">
+                                    <em class="badge proceeding">입금대기</em>
+                                    <div class="content bottom">
+                                        <p>위 금액은 이번달 말일에<br>입금될 예정입니다:D</p>
+                                        <button type="button" class="btn-icon close wh-16 e-tooltip"></button>
+                                    </div>
+                                </div>
+                        입금완료: <em class="badge success">입금완료</em>
+                     -->
+                    <!-- 계좌 미등록 시 -->
+                    <div class="module-tooltip show">
+                        <em class="badge error">계좌 미등록</em>
+                        <div class="content bottom">
+                            <p>정산금액을 입금받기 위해선<br>마이페이지에서 정산계좌를<br>정확히 등록해주세요 :D</p>
+                            <button type="button" class="btn-icon close wh-16 e-tooltip"></button>
+                        </div>
+                    </div><!-- //계좌 미등록 시 -->
+                </div>
+                <div class="contents" id="contents">
+                    <div class="inner-scroll">
+                        <!-- data 없을 경우 -->
+                        <div class="section-empty income">
+                            <i class="icon no-balance"></i>
+                            <p>이런... 위 기간에 광고비 수익이 없어요 ㅠㅠ<br>광고비 수익 만드는 방법 알아보실래요?</p>
+                            <div class="area-button">
+                                <a href="javascript:;" class="btn btn-primary">상품 링크 공유로 수익만들기 Tip</a>
+                            </div>
+                        </div>
+                        <!-- data 있을 경우 -->
+                        <section>
+                            <h2 class="section-title">지난 정산내역</h2>
+                            <div class="list">
+                                <!-- one -->
+                                <a href="./sales_광고실적.html" class="module-calculate">
+                                    <span class="date">2021년 1월(기간: 12.01~12.31)</span>
+                                    <strong class="price">620,000원</strong>
+                                    <em class="badge small nodata">내역없음</em>
+                                </a><!-- //one -->
+                                <a href="./sales_광고실적.html" class="module-calculate">
+                                    <span class="date">2021년 1월(기간: 11.01~11.30)</span>
+                                    <strong class="price">1,312,000원</strong>
+                                    <em class="badge small success">입금완료</em>
+                                </a>
+                            </div>
+                            <div class="mt-m">
+                                <button class="btn btn-more">더보기(1/3)<i class="icon more"></i></button>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ui관련 js -->
+        <script src="../../resources/js/event.js"></script>
+        <script>
+            $(function() {
+                const $window = window.$window || $(window);
+                const $body = $('body');
+
+
+
+            });
+
+            // tab decoration: 페이지 로딩 시 필수 추가
+            $(window).on('load', function(e) {
+                let tabWraps = $('.module-tab');
+
+                $.each(tabWraps, function(index, tabWrap) {
+                    let tabs = $(tabWrap).find('.tab a');
+
+                    $.each(tabs, function(index, tab) {
+                        if($(tab).closest('li').hasClass('on')) {
+                            let tabItemWidth = $(tab).width(),
+                                tabItemPositionLeft = $(tab).closest('li').position().left;
+
+                            tabDeco(tabWrap, tabItemWidth, tabItemPositionLeft);
+                        }
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>

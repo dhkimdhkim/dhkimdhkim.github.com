@@ -1,0 +1,119 @@
+@charset "utf-8";
+
+.text {
+  &-headline {
+    font-size: 24px;
+    color: $color-bk;
+    font-weight: 300;
+    em {
+      display: inline-block;
+      font-weight: inherit;
+      &::after {
+        @include underline-highlight;
+      }
+    }
+    strong {
+      font-weight: 500;
+    }
+    .icon-market {
+      position: relative;
+      top: -3px;
+      margin-left: 10px;
+      vertical-align: middle;
+      img {
+        vertical-align: middle;
+      }
+    }
+  }
+  &-headline-6 {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  &-title {
+    font-size: 20px;
+    font-weight: 300;
+  }
+  &-sub-head {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  &-caption {
+    font-size: 12px;
+    font-weight: 400;
+  }
+  &-error {
+    color: $color-error !important;
+  }
+  &-em {
+    color: $color-secondary-dark !important;
+  }
+  &-em-light {
+    color: $color-secondary-light !important;
+  }
+  &-info {
+    font-size: 12px;
+    line-height: 1.67;
+  }
+  &-desc {
+    font-size: 14px;
+    color: $color-text-sub;
+    font-weight: 400;
+    .progressbar + & {
+      margin-top: $spacer-r;
+    }
+  }
+  &-confirm {
+    display: inline-block;
+    padding: {
+      left: 36px;
+      right: $spacer-r;
+    }
+    height: 26px;
+    font-size: 14px;
+    line-height: 26px;
+    font-weight: 500;
+    background: rgba($color-primary-light, 0.5) url("../img/ico_info.svg") no-repeat 15px center;
+    background-size: 16px auto;
+    border-radius: 13px;
+  }
+  &-underline {
+    position: relative;
+    display: inline-block;
+    &::after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 1px;
+      background: $color-text-default;
+    }
+  }
+  &-under-deco {
+    display: inline-block;
+    font-size: 24px;
+    line-height: 1.42;
+    font-weight: 500;
+    &::after {
+      content: "";
+      display: block;
+      margin-top: -8px;
+      width: 100%;
+      height: 6px;
+      background: $color-primary-light;
+    }
+  }
+  &-ellipsis {
+    overflow: hidden;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  &-highlight {
+    &::after {
+      @include underline-highlight;
+    }
+  }
+}
+.section-title {
+  font-size: 1rem;
+  font-weight: 500;
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, viewport-fit=cover, initial-scale=1.0" />
+        <meta name="title" content="인바이유" />
+        <meta name="author" content="inbyu" />
+        <meta name="copyright" content="inbyu" />
+        <title>인바이유</title>
+        <link rel="stylesheet" href="../../resources/css/common.css" />
+        <script src="../../resources/js/lib/jquery-3.3.1.min.js"></script>
+        <style>
+        </style>
+    </head>
+    <body>
+    <div><!-- vue 작업용 무의미 div -->
+        <div class="wrap" id="wrap">
+            <div class="head-button">
+                <a href="javascript:history.back();" class="btn-icon back"></a>
+                <h1 class="title">설정</h1>
+            </div>
+            <div class="container pb-0" id="container">
+                <div class="contents p-row-reset pb-0" id="contents">
+                    <section class="section-profile divide">
+                        <h2 class="blind">프로필</h2>
+                        <div class="profile">
+                            <span class="image"><img src="../../resources/img/img_profile_default.svg" alt="프로필 이미지"></span>
+                        </div>
+                        <strong class="name">홍길동 설계사님</strong>
+                        <em class="company">에이씨플러스에셋</em>
+                        <span class="phone">010-1234-1234</span>
+                        <a href="javascript:;" class="btn btn-normal">프로필 설정</a>
+                    </section>
+
+                    <section class="section-my divide">
+                        <header class="head">
+                            <h2 class="text-sub-head"><i class="icon customer"></i>나의 고객 관리</h2>
+                            <p>고객님의 주소록 관리 및 보험금 청구를 지원할 수 있어요.</p>
+                        </header>
+                        <ul class="module-dl">
+                            <li><a href="javascript:;"><strong>등록한 고객 수</strong><span>고객을 등록해보세요.</span></a></li>
+                            <li><a href="javascript:;"><strong>모바일 청구서 서비스</strong></a></li>
+                        </ul>
+                    </section>
+                    
+                    <section class="section-my divide">
+                        <header class="head">
+                            <h2 class="text-sub-head"><i class="icon sales"></i>영업활동내역</h2>
+                            <p>영업활동에 대한 고객반응과 영업 실적을 관리하세요.</p>
+                        </header>
+                        <ul class="module-dl">
+                            <li><a href="javascript:;"><strong>고객반응 관리</strong></a></li>
+                            <li><a href="javascript:;"><strong>계약실적 및 매출관리</strong></a></li>
+                            <li><a href="javascript:;"><strong>광고비 정산 계좌등록</strong></a></li>
+                        </ul>
+                    </section>
+                    
+                    <section class="section-my divide">
+                        <header class="head">
+                            <h2 class="text-sub-head"><i class="icon setting"></i>서비스 설정</h2>
+                            <p>약관 확인, 고객지원, 알림 설정하고 안심서비스를 이용하세요.</p>
+                        </header>
+                        <ul class="module-dl">
+                            <li><a href="javascript:;"><strong>고객센터</strong></a></li>
+                            <li><a href="javascript:;"><strong>알림 설정</strong></a></li>
+                        </ul>
+                    </section>
+                    
+                    <section class="section-my">
+                        <header class="head">
+                            <h2 class="text-sub-head"><i class="icon app"></i>앱정보</h2>
+                            <p>앱 약관을 확인하시고, 앱의 최신 버전을 유지하세요.</p>
+                        </header>
+                        <ul class="module-dl">
+                            <li><a href="javascript:;"><strong>서비스 이용약관</strong></a></li>
+                            <li><a href="javascript:;"><strong>개인정보 처리방침</strong></a></li>
+                            <li><a href="javascript:;"><strong>버전정보</strong><span>12.17.222</span></a></li>
+                        </ul>
+                    </section>
+                </div>
+
+                <!-- include: footer -->
+                <div data-include-path="../include/footer.html"></div>
+        
+            </div>
+        </div>
+
+    </div>
+        <!-- ui관련 js -->
+        <script src="../../resources/js/event.js"></script>
+        <script>
+            $(function() {
+                const $window = window.$window || $(window);
+                const $body = $('body');
+
+            });
+        </script>
+
+        <!-- include 용 -->
+        <script src="../../src/js/include.js"></script>
+    </body>
+</html>

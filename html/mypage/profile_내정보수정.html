@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, viewport-fit=cover, initial-scale=1.0" />
+        <meta name="title" content="인바이유" />
+        <meta name="author" content="inbyu" />
+        <meta name="copyright" content="inbyu" />
+        <title>인바이유</title>
+        <link rel="stylesheet" href="../../resources/css/common.css" />
+        <script src="../../resources/js/lib/jquery-3.3.1.min.js"></script>
+        <style>
+        </style>
+    </head>
+    <body>
+    <div><!-- vue 작업용 무의미 div -->
+        <div class="wrap" id="wrap">
+            <div class="head-button">
+                <a href="javascript:history.back();" class="btn-icon back"></a>
+                <h1 class="title">내 정보 수정</h1>
+            </div>
+            <div class="container" id="container">
+                <div class="contents p-row-reset" id="contents">
+                    <section class="section-profile divide edit">
+                        <h2 class="blind">프로필</h2>
+                        <div class="profile">
+                            <span class="image"><img src="https://stickershop.line-scdn.net/stickershop/v1/product/9740461/LINEStorePC/main.png;compress=true" alt="프로필 이미지"></span>
+                            <a href="javascript:;" class="btn-icon delete" title="등록된 프로필 삭제"></a>
+                            <span class="btn-icon edit-file"><input type="file" id="addFile"><label for="addFile" title="프로필 수정"></label></span><!--  -->
+                        </div>
+                        <strong class="name">홍길동 설계사님</strong>
+                        <em class="company">에이씨플러스에셋</em>
+                        <span class="phone">010-1234-1234</span>
+                        <div class="module-tooltip">
+                            <a href="javascript:;" class="btn-icon tooltip e-tooltip"></a>
+                            <div class="content right">
+                                <p>필수정보는 변경 불가합니다.<br>고객센터로 문의해주세요.(문구 미정)</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="section-dl divide">
+                        <ul class="module-dl">
+                            <li><strong>이름</strong><span>홍길동</span></li>
+                            <li><strong>생년월일</strong><span>1979년 11월 17일</span></li>
+                            <li><a href="javascript:;"><strong>소속</strong><span>에이씨플러스에셋</span></a></li>
+                            <li><strong>휴대폰번호</strong><span><a href="" class="btn btn-normal small">변경하기</a></span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="section-dl">
+                        <ul class="module-dl">
+                            <li><strong>이메일아이디</strong><span>email@inbyu.com</span></li>
+                            <li><strong>간편비밀번호</strong><span><a href="" class="btn btn-normal small">변경하기</a></span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="area-button fixed">
+                    <button type="submit" class="btn btn-primary disabled">확인</button><!-- 활성 시 disabled 삭제 -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+        <!-- ui관련 js -->
+        <script src="../../resources/js/event.js"></script>
+        <script>
+            $(function() {
+                const $window = window.$window || $(window);
+                const $body = $('body');
+
+            });
+        </script>
+    </body>
+</html>

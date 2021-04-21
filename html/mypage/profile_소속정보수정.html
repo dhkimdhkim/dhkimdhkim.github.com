@@ -1,0 +1,234 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, viewport-fit=cover, initial-scale=1.0" />
+        <meta name="title" content="인바이유" />
+        <meta name="author" content="inbyu" />
+        <meta name="copyright" content="inbyu" />
+        <title>인바이유</title>
+        <link rel="stylesheet" href="../../resources/css/common.css" />
+        <script src="../../resources/js/lib/jquery-3.3.1.min.js"></script>
+        <style>
+        </style>
+    </head>
+    <body>
+        
+        <div class="wrap" id="wrap">
+            <div class="head-button">
+                <a href="javascript:history.back();" class="btn-icon back"></a>
+            </div>
+            <div class="container" id="container">
+                <header class="header">
+                    <h1 class="text-headline">소속 회사와 설계사 정보를<br>최신정보로 유지해주세요</h1>
+                </header>
+                <div class="contents pb-r" id="contents">
+                    <fieldset>
+                        <div class="form-group select">
+                            <strong class="input-label">회사명</strong>
+                            <span class="f-text">
+                                <input type="text" value="인바이유" id="company" readonly>
+                                <a href="#layerCompanyList" class="btn-trigger e-layer"></a>
+                            </span>
+                        </div>
+                        <section class="section-certificate">
+                            <h2 class="text-confirm">설계사 자격확인</h2>
+                            <p class="text-desc">케어플 앱서비스는 설계사 자격증이 있는 회원님만 이용가능한 서비스입니다.<br><em class="text-em">홍길동</em>님은 설계사 자격증을 보유하고 계신가요?</p>
+                            <div class="have">
+                                <span class="btn btn-radio"><input type="radio" name="certificate" id="have" checked><label for="have">네</label></span>
+                                <span class="btn btn-radio"><input type="radio" name="certificate" id="dontHave"><label for="dontHave">아니오</label></span>
+                            </div>
+                        </section>
+                        <section class="section-document">
+                            <h2 class="text-caption">증빙서류첨부</h2>
+                            <p class="text-desc">보험설계사 자격을 확인할 수 있는 설계사코드가 포함된 증빙서류를 첨부해주세요</p>
+                            <div class="file-wrap">
+                                <!-- 첨부 파일이 없을 경우 -->
+                                <div class="empty">
+                                    <input type="file" id="file" class="blind"><label for="file"><i class="icon camera"></i>첨부파일이 없습니다.<br>해당 영역을 터치한 후 이미지를 첨부해주세요.</label>
+                                </div>
+                                <!-- 첨부 파일이 있을 경우 -->
+                                <div class="has">
+                                    <ul class="list-file">
+                                        <!-- 이미지 첨부시 -->
+                                        <li class="form-file">
+                                            <span class="inner attached"><!-- 파일 추가 시 attached class 추가 -->
+                                                <img src="https://i.pinimg.com/originals/f0/d3/c4/f0d3c4a2f421044f0fe6ade7bec2b9ab.png" alt="">
+                                                <a href="#layerDeleteFile" class="btn-icon delete-file" title="첨부 파일 삭제"></a>
+                                            </span>
+                                        </li><!-- // 이미지 첨부시 -->
+                                        <!-- 파일이 pdf일 경우 -->
+                                        <li class="form-file">
+                                            <span class="inner attached pdf"><!-- 파일 추가 시 attached class 추가, pdf 일 경우 pdf 클래스 추가, img 태그 삭제 -->
+                                                <a href="#layerDeleteFile" class="btn-icon delete-file" title="첨부 파일 삭제"></a>
+                                            </span>
+                                        </li><!-- //파일이 pdf일 경우 -->
+                                        <li class="form-file">
+                                            <span class="inner">
+                                                <input type="file" id="file3" class="blind">
+                                                <label for="file3"><span class="blind">첨부하기</span></label>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <p class="text-info">* 설계사 자격증이란?<br>&nbsp;&nbsp;생명보험설계사, 손해보험설계, 제3보험설계사</p>
+                        </section>
+                    </fieldset>
+                </div>
+                <div class="area-button fixed">
+                    <a href="javascript:;" class="btn btn-primary">저장</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- layer: 회사 선택 -->
+        <section class="layer full layer-company_list" id="layerCompanyList">
+            <div class="container">
+                <div class="head-button">
+                    <a href="javascript:;" class="btn-icon close e-close"></a>
+                </div>
+                <div class="content p-reset">
+                    <header class="head">
+                        <h2>회사를 선택해주세요.</h2>
+                    </header>
+
+                    <div class="form-group search">
+                        <span class="f-text"><input type="text" id="searchCompany" placeholder="placeholder"></span>
+                        <button class="btn-icon clear e-clear-input"></button>
+                    </div>
+                   
+                    <!-- 검색 결과 -->
+                    <div class="result-area">
+                        <p class="none">검색결과 없음</p>
+                        <ul>
+                            <li><input type="radio" name="chooseCompany" id="bb1"><label for="bb1">ㄴ회사 1</label></li>
+                            <li><input type="radio" name="chooseCompany" id="bb2"><label for="bb2">ㄴ회사 2</label></li>
+                            <li><input type="radio" name="chooseCompany" id="bb3"><label for="bb3">ㄴ회사 3</label></li>
+                        </ul>
+                    </div><!-- //검색 결과 -->
+
+                    <!-- 전체 목록 -->
+                    <div class="module-company">
+                        <div class="list-radio company">
+                            <ul id="letter-none">
+                                <li><input type="radio" name="chooseCompany" id="none"><label for="none">소속된 회사 없음</label></li>
+                            </ul>
+                            <ul id="letter-giyeok">
+                                <li><input type="radio" name="chooseCompany" id="a1"><label for="a1">ㄱ회사 1</label></li>
+                                <li><input type="radio" name="chooseCompany" id="a2"><label for="a2">ㄱ회사 2</label></li>
+                                <li><input type="radio" name="chooseCompany" id="a3"><label for="a3">ㄱ회사 3</label></li>
+                            </ul>
+                            <ul id="letter-nieun">
+                                <li><input type="radio" name="chooseCompany" id="b1"><label for="b1">ㄴ회사 1</label></li>
+                                <li><input type="radio" name="chooseCompany" id="b2"><label for="b2">ㄴ회사 2</label></li>
+                                <li><input type="radio" name="chooseCompany" id="b3"><label for="b3">ㄴ회사 3</label></li>
+                            </ul>
+                            <ul id="letter-digeut">
+                                <li><input type="radio" name="chooseCompany" id="c1"><label for="c1">ㄷ회사 1</label></li>
+                                <li><input type="radio" name="chooseCompany" id="c2"><label for="c2">ㄷ회사 2</label></li>
+                                <li><input type="radio" name="chooseCompany" id="c3"><label for="c3">ㄷ회사 3</label></li>
+                            </ul>
+                            <ul id="letter-rieul">
+                                <li><input type="radio" name="chooseCompany" id="d1"><label for="d1">ㄹ회사 1</label></li>
+                                <li><input type="radio" name="chooseCompany" id="d2"><label for="d2">ㄹ회사 2</label></li>
+                                <li><input type="radio" name="chooseCompany" id="d3"><label for="d3">ㄹ회사 3</label></li>
+                            </ul>
+                            <ul id="letter-mieum">
+                                <li><input type="radio" name="chooseCompany" id="e1"><label for="e1">ㅁ회사 1</label></li>
+                            </ul>
+                            <ul id="letter-bieup">
+                                <li><input type="radio" name="chooseCompany" id="f1"><label for="f1">ㅂ회사 1</label></li>
+                            </ul>
+                            <ul id="letter-siot">
+                                <li><input type="radio" name="chooseCompany" id="g1"><label for="g1">ㅅ회사 1</label></li>
+                            </ul>
+                            <ul id="letter-ieung">
+                                <li><input type="radio" name="chooseCompany" id="h1"><label for="h1">ㅇ회사 1</label></li>
+                            </ul>
+                            <ul id="letter-jieut">
+                                <li><input type="radio" name="chooseCompany" id="i1"><label for="i1">ㅈ회사 1</label></li>
+                            </ul>
+                            <ul id="letter-chieut">
+                                <li><input type="radio" name="chooseCompany" id="j1"><label for="j1">ㅊ회사 1</label></li>
+                            </ul>
+                            <ul id="letter-kieuk">
+                                <li><input type="radio" name="chooseCompany" id="k1"><label for="k1">ㅋ회사 1</label></li>
+                            </ul>
+                            <ul id="letter-tieut">
+                                <li><input type="radio" name="chooseCompany" id="l1"><label for="l1">ㅌ회사 1</label></li>
+                            </ul>
+                            <ul id="letter-pieup">
+                                <li><input type="radio" name="chooseCompany" id="m1"><label for="m1">ㅍ회사 1</label></li>
+                            </ul>
+                            <ul id="letter-hieut">
+                                <li><input type="radio" name="chooseCompany" id="n1"><label for="n1">ㅎ회사 1</label></li>
+                            </ul>
+                        </div>
+                        <div class="shortcuts" id="shortcuts">
+                            <ul>
+                                <li><a href="#letter-giyeok">ㄱ</a></li>
+                                <li><a href="#letter-nieun">ㄴ</a></li>
+                                <li><a href="#letter-digeut">ㄷ</a></li>
+                                <li><a href="#letter-rieul">ㄹ</a></li>
+                                <li><a href="#letter-mieum">ㅁ</a></li>
+                                <li><a href="#letter-bieup">ㅂ</a></li>
+                                <li><a href="#letter-siot">ㅅ</a></li>
+                                <li><a href="#letter-ieung">ㅇ</a></li>
+                                <li><a href="#letter-jieut">ㅈ</a></li>
+                                <li><a href="#letter-chieut">ㅊ</a></li>
+                                <li><a href="#letter-kieuk">ㅋ</a></li>
+                                <li><a href="#letter-tieut">ㅌ</a></li>
+                                <li><a href="#letter-pieup">ㅍ</a></li>
+                                <li><a href="#letter-hieut">ㅎ</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- //전체 목록 -->
+
+                </div>
+            </div>
+        </section><!-- //layer: 회사 선택 -->
+
+        <!-- ui관련 js -->
+        <script src="../../resources/js/event.js"></script>
+        <script>
+            $(function() {
+                const $window = window.$window || $(window);
+                const $body = $('body');
+                
+                // 회사 검색
+                $body.on('keyup', '#searchCompany', function(e) {
+                    const $this = $(this),
+                          $result = $($('.result-area'));
+                    let hasValue = $this.val().length > 0;
+                    
+                    hasValue ? $result.addClass('show') : $result.removeClass('show');
+                });
+                $body.on('click', '.e-clear-input', function(e) {
+                    const $this = $(this),
+                          $result = $($('.result-area'));
+                    
+                    $result.removeClass('show');
+                });
+
+                // 회사 선택
+                $body.on('click', 'input[name="chooseCompany"]', function(){
+                    const $this = $(this),
+                          $input = $('#company'),
+                          $findParentLayer = $this.closest('.layer'),
+                          $findParentWrap = $($input.closest('.form-group'));
+                    let checkedCompanyVal = $this.siblings('label').text();
+
+                    $input.val(checkedCompanyVal)
+
+                    closeLayer($findParentLayer);
+                });
+
+                // indicator 호출
+                // showIndicator();
+                // hideIndicator();
+
+            });
+        </script>
+    </body>
+</html>

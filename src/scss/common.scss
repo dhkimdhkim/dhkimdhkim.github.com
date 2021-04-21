@@ -1,0 +1,50 @@
+@charset "utf-8";
+
+@import "_fonts";
+@import "_reset";
+@import "_mixin";
+
+@import "_layout";
+@import "_form";
+@import "_button";
+@import "_icon";
+@import "_badge";
+@import "_text";
+// @import "_datepicker";
+@import "_mobileSelect";
+@import "_module";
+@import "_layer";
+@import "_page";
+@import "_circle";
+@import "_ripple";
+@import "_indicator";
+@import "_animation";
+
+
+body{background: $color-wh;}
+body,th,td,input,select,textarea,button{font-size:16px; line-height:1.5; font-family:"Noto Sans KR", sans-serif;color:$color-text-default;}
+a{color: $color-text-default;}
+img {max-width: 100%; vertical-align: top;}
+
+.blind {
+    overflow: hidden; 
+    position: absolute; 
+    clip: rect(0 0 0 0); 
+    margin: -1px; 
+    width: 1px; 
+    height: 1px; 
+    color: transparent;
+}
+
+.notch {
+    position: fixed;
+    left:0;
+    right:0;
+    bottom: env(safe-area-inset-bottom);
+    bottom: constant(safe-area-inset-bottom);
+    background: #f8f8f8;
+}
+
+pre {
+    white-space: pre-wrap; 
+}

@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, viewport-fit=cover, initial-scale=1.0" />
+        <meta name="title" content="인바이유" />
+        <meta name="author" content="inbyu" />
+        <meta name="copyright" content="inbyu" />
+        <title>인바이유</title>
+        <link rel="stylesheet" href="../../resources/css/common.css" />
+        <script src="../../resources/js/lib/jquery-3.3.1.min.js"></script>
+        <style>
+        </style>
+    </head>
+    <body>
+    <div><!-- vue 작업용 무의미 div -->
+        <div class="wrap" id="wrap">
+            <div class="head-button">
+                <div class="al-right">
+                    <a href="#aside-alert" class="btn-icon alert on e-show-aside"></a>
+                    <a href="javascript:;" class="btn-icon hamberger"></a>
+                </div>
+            </div>
+            <div class="container" id="container">
+                <header class="header">
+                    <h1 class="text-headline">링크를 통해<br>보장분석을 진행한<br><em>고객들이에요</em><i class="icon headline analysis"></i></h1>
+                </header>
+                <div class="contents" id="contents">
+                    <div class="module-tab flex e-tab">
+                        <div class="tab">
+                            <ul>
+                                <li class="on"><a href="#con01">이번달</a></li>
+                                <li><a href="#con02">지난달</a></li>
+                                <li><a href="#con03">이전</a></li>
+                            </ul>
+                            <span class="tab-point"></span>
+                        </div>
+
+                        <div class="section-banner mt-s">
+                            <img src="../../resources/img/@img_banner_tip02.png" alt="디테일한 설계를 위한 보장분석 요청링크 보내는 방법">
+                        </div>
+
+                        <div class="section-customer-list">
+                            <div class="area-button mt-m">
+                                <button type="button" class="btn btn-normal">보장분석 요청 링크 보내기</button>
+                            </div>
+
+                            <!-- data 없을 경우 -->
+                            <div class="section-empty analysis">
+                                <i class="icon send"></i>
+                                <p>정확한 설계를 위해<br>고객에게 보장분석 링크를 보내보세요.</p>
+                                <div class="area-button">
+                                    <a href="javascript:;" class="btn btn-primary">보장분석링크보내기 Tip</a>
+                                </div>
+                            </div>
+
+                            <!-- tab-content 에 id 할당, tab에 id 연결 필요. (다른 방식으로 하셔도 됩니다.) -->
+                            <div class="tab-content on" id="con01">
+                                <div class="status">보장분석 고객 <strong>50</strong>명</div>
+                                <div class="list mt-s">
+                                    <!-- one -->
+                                    <a href="javascript:;" class="module-customer">
+                                        <!-- 
+                                            과다: <em class="badge danger">과다</em>
+                                            부족: <em class="badge danger">부족</em>
+                                            주의: <em class="badge caution">주의</em>
+                                            양호: <em class="badge good">양호</em>
+                                            충분: <em class="badge enough">충분</em>
+                                         -->
+                                        <div class="core">
+                                            <strong class="name">김나박</strong>
+                                            <div><em class="rate">보장율 <strong>5%</strong></em><em class="badge danger">부족</em></div>
+                                        </div>
+                                        <div class="detail">
+                                            <div class="info"><span>여자</span><span>84년 9월 18일(만 34세)</span></div>
+                                            <span class="date">마지막 분석일 2021년 3월 3일</span>
+                                        </div>
+                                    </a><!-- //one -->
+                                    <a href="javascript:;" class="module-customer">
+                                        <div class="core">
+                                            <strong class="name">김나박</strong>
+                                            <div><em class="rate">보장율 <strong>98%</strong></em><em class="badge good">양호</em></div>
+                                        </div>
+                                        <div class="detail">
+                                            <div class="info"><span>여자</span><span>84년 9월 18일(만 34세)</span></div>
+                                            <span class="date">마지막 분석일 2021년 3월 3일</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- include: gnb -->
+                <div data-include-path="../include/gnb.html"></div>
+        
+            </div>
+        </div>
+
+        <!-- include: alert -->
+        <div data-include-path="../include/alert.html"></div>
+
+    </div>
+
+        <!-- ui관련 js -->
+        <script src="../../resources/js/event.js"></script>
+        <script>
+            $(function() {
+                const $window = window.$window || $(window);
+                const $body = $('body');
+
+            });
+
+            // tab decoration: 페이지 로딩 시 필수 추가
+            $(window).on('load', function(e) {
+                let tabWraps = $('.module-tab');
+
+                $.each(tabWraps, function(index, tabWrap) {
+                    let tabs = $(tabWrap).find('.tab a');
+
+                    $.each(tabs, function(index, tab) {
+                        if($(tab).closest('li').hasClass('on')) {
+                            let tabItemWidth = $(tab).width(),
+                                tabItemPositionLeft = $(tab).closest('li').position().left + $(tab).scrollLeft();
+
+                            tabDeco(tabWrap, tabItemWidth, tabItemPositionLeft);
+                        }
+                    });
+                });
+            });
+        </script>
+
+        <!-- include 용 -->
+        <script src="../../src/js/include.js"></script>
+    </body>
+</html>

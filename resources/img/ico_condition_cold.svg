@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <g transform="translate(-260 -38) translate(260 38) translate(14 16.5)">
+                    <circle cx="48.44" cy="31" r="23" fill="#9299A1" opacity=".7"/>
+                    <g fill="#000">
+                        <rect width="4" height="37.44" x="31.52" rx="2"/>
+                        <rect width="4" height="20.16" x="37.28" y="4.32" rx="2" transform="rotate(45 39.28 14.4)"/>
+                        <rect width="4" height="20.16" x="25.76" y="4.32" rx="2" transform="scale(-1 1) rotate(45 0 -52.619)"/>
+                        <rect width="4" height="37.44" x="31.52" y="28.8" rx="2" transform="matrix(1 0 0 -1 0 95.04)"/>
+                        <rect width="4" height="20.16" x="37.28" y="41.76" rx="2" transform="scale(1 -1) rotate(45 164.433 0)"/>
+                        <rect width="4" height="20.16" x="25.76" y="41.76" rx="2" transform="rotate(-135 27.76 51.84)"/>
+                        <rect width="4" height="37.44" x="45.92" y="14.4" rx="2" transform="rotate(90 47.92 33.12)"/>
+                        <rect width="4" height="20.16" x="50.24" y="28.8" rx="2" transform="rotate(135 52.24 38.88)"/>
+                        <rect width="4" height="20.16" x="50.24" y="17.28" rx="2" transform="scale(1 -1) rotate(-45 -13.813 0)"/>
+                        <rect width="4" height="37.44" x="17.12" y="14.4" rx="2" transform="matrix(0 1 1 0 -14 14)"/>
+                        <rect width="4" height="20.16" x="12.8" y="28.8" rx="2" transform="scale(1 -1) rotate(-45 -79.065 0)"/>
+                        <rect width="4" height="20.16" x="12.8" y="17.28" rx="2" transform="rotate(135 14.8 27.36)"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, viewport-fit=cover, initial-scale=1.0" />
+        <meta name="title" content="인바이유" />
+        <meta name="author" content="inbyu" />
+        <meta name="copyright" content="inbyu" />
+        <title>인바이유</title>
+        <link rel="stylesheet" href="../resources/css/common.css" />
+        <script src="../resources/js/lib/jquery-3.3.1.min.js"></script>
+        <style>
+        </style>
+    </head>
+    <body>
+    <div><!-- vue 작업용 무의미 div -->
+        <div class="wrap page-main" id="wrap">
+            <div class="head-button">
+                <div class="al-right">
+                    <a href="#aside-alert" class="btn-icon alert on e-show-aside"></a>
+                    <a href="javascript:;" class="btn-icon hamberger"></a>
+                </div>
+            </div>
+            <div class="container" id="container">
+                <header class="header">
+                    <h1 class="text-headline">head</h1>
+                </header>
+                <div class="contents" id="contents">
+                    
+                </div>
+
+                <!-- include: gnb -->
+                <div data-include-path="./include/gnb.html"></div>
+        
+            </div>
+        </div>
+
+        <!-- include: alert -->
+        <div data-include-path="./include/alert.html"></div>
+    </div>
+
+        <!-- ui관련 js -->
+        <script src="../resources/js/event.js"></script>
+        <script>
+            $(function() {
+                const $window = window.$window || $(window);
+                const $body = $('body');
+
+                // tab decoration
+                $(window).on('load', function(e) {
+                    let tabWraps = $('.module-tab');
+
+                    $.each(tabWraps, function(index, tabWrap) {
+                        let tabs = $(tabWrap).find('.tab a');
+
+                        $.each(tabs, function(index, tab) {
+                            if($(tab).closest('li').hasClass('on')) {
+                                let tabItemWidth = $(tab).width(),
+                                    tabItemPositionLeft = $(tab).closest('li').position().left;
+
+                                tabDeco(tabWrap, tabItemWidth, tabItemPositionLeft);
+                            }
+                        });
+                    });
+                });
+            });
+            
+        </script>
+
+        <script>
+            $(function() {
+                $('body').on('click', '.gnb li', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const targetMenu = $(this);
+                    targetMenu.addClass('on').siblings().removeClass('on');
+                    // console.log(targetMenu);
+                });
+            });
+        </script>
+        <!-- include 용 -->
+        <script src="../src/js/include.js"></script>
+    </body>
+</html>

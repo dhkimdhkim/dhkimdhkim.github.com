@@ -1,0 +1,185 @@
+$color: #1e83d3;
+
+@mixin clearfix() {
+  &:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+}
+
+@mixin nowrap() {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.mobileSelect {
+  position: relative;
+  z-index: 0;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.4s, z-index 0.4s;
+  transition: opacity 0.4s, z-index 0.4s;
+  * {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  .grayLayer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: #eee;
+    background: rgba(0, 0, 0, 0.32);
+    z-index: 200;
+    display: block;
+  }
+  .content {
+    width: 100%;
+    display: block;
+    position: fixed;
+    z-index: 210;
+    color: $color-bk;
+    -webkit-transition: all 0.4s;
+    transition: all 0.4s;
+    bottom: -350px;
+    left: 0;
+    background: white;
+    .fixWidth {
+      @include clearfix();
+      margin: 0 auto;
+      position: relative;
+    }
+    .btnBar {
+      position: relative;
+      padding: 0 24px;
+      height: 48px;
+      font-size: 16px;
+      text-align: center;
+      line-height: 48px;
+      border-bottom: 1px solid #dcdcdc;
+      .cancel,
+      .ensure {
+        height: 45px;
+        width: 55px;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+      }
+      .cancel {
+        left: 24px;
+        color: $color-text-sub;
+      }
+      .ensure {
+        right: 24px;
+        color: $color-text-sub;
+      }
+      .title {
+        font-size: 16px;
+        padding: 0 24px;
+        @include nowrap();
+      }
+    }
+    .panel {
+      @include clearfix();
+      .wheels {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 231px;
+        overflow: hidden;
+      }
+      .wheel {
+        position: relative;
+        z-index: 0;
+        float: left;
+        padding: 34px 28px;
+        width: auto !important;
+        height: 231px;
+        overflow: hidden;
+        -webkit-transition: width 0.3s ease;
+        transition: width 0.3s ease;
+        .selectContainer {
+          display: block;
+          text-align: center;
+          -webkit-transition: -webkit-transform 0.18s ease-out;
+          transition: -webkit-transform 0.18s ease-out;
+          transition: transform 0.18s ease-out;
+          transition: transform 0.18s ease-out, -webkit-transform 0.18s ease-out;
+          li {
+            font-size: 17px;
+            display: block;
+            height: 34px;
+            line-height: 34px;
+            cursor: pointer;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+
+      .selectLine {
+        height: 34px;
+        width: 100%;
+        position: absolute;
+        top: 102px;
+        pointer-events: none;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        border-top: 1px solid #e6e4ea;
+        border-bottom: 1px solid #e6e4ea;
+      }
+
+      .shadowMask {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 231px;
+        background: -webkit-gradient(
+          linear,
+          left top,
+          left bottom,
+          from(#ffffff),
+          rgba(255,255,255,0.6) 102px,
+          rgba(255, 255, 255, 0) 36px,
+          rgba(255,255,255,0.6) 138px,
+          to(#ffffff)
+        );
+        background: -webkit-linear-gradient(
+          top,
+          #ffffff,
+          rgba(255,255,255,0.6) 102px,
+          rgba(255, 255, 255, 0) 36px,
+          rgba(255,255,255,0.6) 138px,
+          #ffffff
+        );
+        background: linear-gradient(
+          to bottom,
+          #ffffff,
+          rgba(255,255,255,0.6) 102px,
+          rgba(255, 255, 255, 0) 36px,
+          rgba(255,255,255,0.6) 138px,
+          #ffffff
+        );
+        opacity: 0.9;
+        pointer-events: none;
+      }
+    }
+  }
+}
+
+.mobileSelect-show {
+  opacity: 1;
+  z-index: 250;
+  visibility: visible;
+  .content {
+    bottom: 0;
+  }
+}

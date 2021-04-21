@@ -1,0 +1,197 @@
+@charset "utf-8";
+
+i.icon {
+  display: inline-block;
+  line-height: 1;
+  text-align:center;
+  vertical-align: middle;
+  background: {
+    repeat: no-repeat;
+    position: center;
+    size: cover;
+  }
+  backface-visibility: hidden;
+
+  &.camera {
+    width: 37px;
+    height: 37px;
+    background-image: url(../img/ico_camera.svg);
+  }
+
+  &.more {
+    margin-left: $spacer-xs;
+    width: 17px;
+    height: 16px;
+    background-image: url(../img/ico_more.svg);
+  }
+  
+  &.arrow-down-16 {
+    width: 16px;
+    height: 16px;
+    background-image: url(../img/ico_arrow_down_16.svg);
+  }
+
+  &.arrow-down-16-wh {
+    width: 16px;
+    height: 16px;
+    background-image: url(../img/ico_arrow_down_16_wh.svg);
+  }
+  
+  &.no-balance {
+    width: 82px;
+    height: 67px;
+    background-image: url(../img/ico_no_balance.svg);
+  }
+  
+  &.send {
+    width: 85px;
+    height: 46px;
+    background-image: url(../img/ico_send.svg);
+  }
+
+  &.pdf {
+    margin-left: 8px;
+    width: 22px;
+    height: 24px;
+    background-image: url(../img/ico_file_s_pdf.svg);
+  }
+
+  &.headline {
+    margin-left: 4px;
+    width: 46px;
+    height: 46px;
+    &.analysis {
+      background-image: url(../img/ico_headline_analysis.svg);
+    }
+  }
+
+  // 보장분석
+  &.insu-condition {
+    width: 100px;
+    height: 100px;
+
+    $analysis: "sunny", "fine", "cloudy", "cold";
+  
+    @each $condition in $analysis {
+      &.#{$condition} {
+        background-image: url("../img/ico_condition_" + $condition + ".svg");
+      }
+    }
+  }
+
+  // 보장분석상세
+  &.insu-detail {
+    width: 27px;
+    height: 26px;
+
+    $insu: "life", "nonelife", "guaranteed", "saving";
+  
+    @each $item in $insu {
+      &.#{$item} {
+        background-image: url("../img/ico_insu_" + $item + ".svg");
+      }
+    }
+  }
+
+  // 마이페이지
+  $mypage: "customer", "sales", "setting", "app";
+
+  @each $menu in $mypage {
+    &.#{$menu} {
+      background-image: url("../img/ico_" + $menu + ".svg");
+    }
+  }
+  &.customer, &.sales, &.setting, &.app {
+    margin-right: $spacer-s;
+    width: 26px;
+    height: 26px;
+  }
+
+  // gnb
+  $gnb: "home", "report", "market", "compare";
+
+  @each $menu in $gnb {
+    &.#{$menu} {
+      width: 24px;
+      height: 24px;
+      background-image: url("../img/ico_nav_" + $menu + ".svg");
+      transition: 0.5s ease .5s;
+    }
+
+    .gnb .on &.#{$menu} {
+      background-image: url("../img/ico_nav_" + $menu + "_on.svg");
+    }
+  }
+
+  // 은행목록
+  $banks: 
+    "kakaobank" 0 0,
+    "nh" -25px 0,
+    "shinhan" -50px 0,
+    "ibk" -75px 0,
+    "hana" -100px 0,
+    "woori" -125px 0,
+    "kb" 0 -25px,
+    "sc"  -25px -25px,
+    "daegu" -50px -25px,
+    "busan" -75px -25px,
+    "gwangju" -100px -25px,
+    "mg" -125px -25px,
+    "kyungnam" 0 -50px,
+    "jeonbuk" -25px -50px,
+    "jeju" -50px -50px,
+    "kdb" -75px -50px,
+    "post" -100px -50px,
+    "cu" -125px -50px,
+    "suhyup" 0 -75px,
+    "citi" -25px -75px,
+    "kbank" -50px -75px,
+    "deutsche" -75px -75px,
+    "boa" -100px -75px,
+    "bnp" -125px -75px,
+    "icbc" 0 -100px,
+    "hsbc" -25px -100px,
+    "jp" -50px -100px,
+    "nfcf" -75px -100px,
+    "mutual" -100px -100px,
+    // 증권사
+    "kakaopay" 0 -150px,
+    "kyobo" -25px -150px,
+    "daishin" -50px -150px,
+    "db" -75px -150px,
+    "meritz" -100px -150px,
+    "miraeassetdaewoo" -125px -150px,
+    "bookook" 0 -175px,
+    "samsung" -25px -175px,
+    "shinyoung" -50px -175px,
+    "shinhan" -75px -175px,
+    "eugenefn" -100px -175px,
+    "yuanta" -125px -175px,
+    "ebest" 0 -200px,
+    "cape" -25px -200px,
+    "kiwoom" -50px -200px,
+    "fosskorea" -75px -200px,
+    "nhqv" -100px -200px,
+    "hanaw" -125px -200px,
+    "hiib" 0 -225px,
+    "truefriend" -25px -225px,
+    "hanwhawm" -50px -225px,
+    "hmsec" -75px -225px,
+    "kbsec" -100px -225px,
+    "ktb" -125px -225px,
+    "sks" 0 -250px;
+
+  @each $bank, $x, $y in $banks {
+    &.bank {
+      width: 24px;
+      height: 24px;
+      background-image: url(../img/img_logo_bank.png);
+      background-size: 150px auto;
+
+      &.#{$bank} {
+        background-position: $x $y;
+      }
+    }
+  }
+  
+}

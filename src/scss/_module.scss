@@ -1,0 +1,946 @@
+@charset "utf-8";
+
+.divide {
+  border-bottom: solid 10px rgba($color-text-hint,0.2);
+}
+
+.progressbar {
+  overflow: hidden;
+  margin: 16px 0 0 0;
+  padding: 0 24px 0 0;
+  width: 100%;
+  height: 2px;
+  background: #dde2e5;
+  span {
+    display: block;
+    width: 0;
+    height: 2px;
+    background: $color-primary-dark;
+    animation: slidein 1s;
+
+    $per: 100%;
+    $margin: 24px;
+    @function progress($column, $i) {
+        @return calc( ( (#{$per} + #{$margin}) / #{$column}) * #{$i})
+    };
+    &.col-3 {
+      $column: 3;
+      
+      @for $i from 1 through $column {
+          &.step-#{$i} {
+            width: progress($column, $i);
+          }
+      }
+    }
+    &.col-4 {
+      $column: 4;
+      
+      @for $i from 1 through $column {
+          &.step-#{$i} {
+            width: progress($column, $i);
+          }
+      }
+    }
+    &.col-5 {
+      $column: 5;
+      
+      @for $i from 1 through $column {
+          &.step-#{$i} {
+            width: progress($column, $i);
+          }
+      }
+    }
+    &.col-6 {
+      $column: 6;
+      
+      @for $i from 1 through $column {
+          &.step-#{$i} {
+            width: progress($column, $i);
+          }
+      }
+    }
+  }
+}
+
+.module-password {
+  .dots {
+    display: flex;
+    justify-content: center;
+    .dot {
+      flex: 0 0 16px;
+      height: 16px;
+      background: #d8d8d8;
+      border-radius: 50%;
+      &.on {
+        background: $color-primary-light;
+      }
+      & + .dot {
+        margin-left: 23px;
+      }
+    }
+  }
+}
+.module-keypad {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding-bottom: safe(bottom, env);
+  padding-bottom: safe(bottom, constant);
+  background: $color-wh;
+  .delete {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    // transform: translate3d(0, -72px, 0);
+    button {
+      font-size: 20px;
+      font-weight: 400;
+    }
+  }
+  .number {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    button:last-of-type {
+      z-index: 10;
+      position: relative;
+    }
+  }
+  button {
+    flex: 0 0 33.33%;
+    height: 72px;
+    font-size: 32px;
+    color: $color-text-default;
+    line-height: 32px;;
+    font-weight: 300;
+    border: 1px solid $color-wh;
+    background: $color-bg-80;
+    &:active {
+      background: $color-primary-light;
+    }
+    &:focus, &:active {
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    &.btn-delete_all {
+    }
+    &.btn-delete_one {
+      background: {
+        image: url("../img/btn_icon_delete_letter.svg");
+        repeat: no-repeat;
+        position: center;
+        size: 41px auto;
+      }
+    }
+  }
+}
+.module-company {
+  // overflow: hidden;
+  position: relative;
+  padding: 10px 0;
+  background: $color-bg-80;
+  .list-radio {
+    padding: 0 40px 0 0;
+  }
+  .shortcuts {
+    opacity: 0;
+    position: absolute;
+    top: 17px;
+    right: 20px;
+    transform: translate3d(40px, 0, 0);
+    transition: opacity .3s linear 1s, transform .1s linear 2s;
+    backface-visibility: hidden;
+    &.scroll {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+      transition: opacity .3s;
+    }
+    li {
+      & + li {
+        &::before {
+          content: "";
+          display: block;
+          margin: 5px auto;
+          width: 3px;
+          height: 3px;
+          border-radius: 50%;
+          background: #a8adb4;
+        }
+      }
+      a {
+        display: block;
+        width: 20px;
+        font-size: 12px;
+        color: #a8adb4;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.module-tooltip {
+  position: relative;
+  display: inline-block;
+
+  &.show {
+    .content {
+      display: block;
+      opacity: 1;
+      transition: opacity 1s;
+    }
+  }
+  .content {
+    display: none;
+    opacity: 0;
+    z-index: 90;
+    position: absolute;
+    padding: $spacer-xs $spacer-s;
+    width: 174px;
+    font-size:12px;
+    color: $color-wh;
+    line-height: 1.5;
+    text-align: left;
+    background: rgba($color-text-default, 0.9);
+    box-shadow: 0 2px 4px 0 rgba($color-text-hint, 0.4);
+    border-radius: 6px;
+    box-sizing: border-box;
+    &::before {
+      content: "";
+      z-index: 80;
+      position: absolute;
+      display: block;
+    }
+
+    $tooltip-arrow: rgba($color-text-default, 0.9);
+    @mixin border($top: transparent, $right: transparent, $left: transparent, $bottom: transparent) {
+      border-top: solid 6px #{$top};
+      border-right: solid 6px #{$right};
+      border-left: solid 6px #{$left};
+      border-bottom: solid 6px #{$bottom};
+    }
+
+    &.right {
+      top: 12px;
+      right: 46px;
+      &::before {
+        top: 8px;
+        right: -6px;
+        @include border($left: $tooltip-arrow);
+        border-right-width: 0;
+      }
+    }
+    &.left {
+      top: 12px;
+      left: 46px;
+      &::before {
+        top: 8px;
+        left: -6px;
+        @include border($right: $tooltip-arrow);
+        border-left-width: 0;
+      }
+    }
+    &.bottom {
+      top: 30px;
+      left: 50%;
+      text-align: center;
+      transform: translate(-50%, 0);
+      &::before {
+        top: -5px;
+        left: calc(50% - 8px);
+        @include border($bottom: $tooltip-arrow);
+        border-top-width: 0;
+      }
+    }
+    .btn-icon {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+    }
+  }
+}
+
+.module-dl {
+  margin-top: $spacer-xs;
+  li {
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    line-height: 50px;
+    & > a {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      padding-right: 24px;
+      flex: 1;
+      height: 50px;
+      line-height: 50px;
+      &::after {
+        @include pseudo-bg(48px, 48px);
+        position: absolute;
+        top: 0;
+        right: -24px;
+        background-image: url("../img/ico_arrow_link_center.svg");
+      }
+    }
+  }
+  
+  strong {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  span {
+    font-size: 14px;
+    color: $color-disabled;
+  }
+}
+
+.module-tab {
+  .tab ul {
+    display: flex;
+    a {
+      &:focus, &:active {
+        -webkit-tap-highlight-color: transparent;
+      }
+    }
+  }
+  &:not(.type-solid) {
+    .tab {
+      overflow-x: auto;
+      position: relative;
+      display: flex;
+      flex: 1;
+      margin: {
+        left: -24px;
+        right: -24px;
+      }
+      padding: 0 24px 0;
+      border-bottom: solid 1px $color-text-hint;
+      li {
+        margin-right: 30px;
+        white-space: nowrap;
+        &:last-of-type {
+          margin-right: 24px;
+        }
+        &.on {
+          a {
+            color: $color-secondary-dark;
+            transition: color .35s ease;
+            &::after {
+              transform: rotateY(0deg);
+            }
+          }
+        }
+        a {
+          overflow: hidden;
+          position: relative;
+          display: block;
+          padding-bottom: $spacer-xs;
+          color: $color-text-sub;
+        }
+      }
+      .tab-point {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        display: block;
+        width: 0;
+        height: 3px;
+        background: $color-secondary-dark;
+        transform: translate3d(24px, 0, 0);
+        transition: .35s ease;
+      }
+    }
+  }
+  &.type-solid {
+    .tab {
+      position: relative;
+      margin: 0 auto;
+      padding: 3px;
+      width: 200px;
+      background: $color-text-hint;
+      border-radius: 6px;
+      box-shadow: inset 0 1px 3px 0 rgba($color-bk, 0.15);
+      box-sizing: border-box;
+      li {
+        z-index: 10;
+        position: relative;
+        flex: 1;
+        text-align: center;
+        font-weight: 500;
+        &.on {
+          a {
+            color: $color-wh;
+            transition: color .5s ease;
+          }
+        }
+        a {
+          display: block;
+          font-size: 12px;
+          color: $color-disabled;
+          line-height: 2;
+          -webkit-appearance: none;
+        }
+      }
+      .tab-point {
+        z-index: 1;
+        position: absolute;
+        top: 3px;
+        left: 0;
+        display: block;
+        width: 97px;
+        height: 24px;
+        background: $color-text-default;
+        border-radius: 6px;
+        box-shadow: 0 1px 1px 0 rgba($color-bk, 0.24), 0 2px 4px 0 rgba($color-bk, 0.5);
+        transform: translate3d(50px, 0px, 0px);
+        transition: .5s ease;
+      }
+    }
+  }
+  .tab-content {
+    display: none;
+    opacity: 0;
+    transition: opacity .35s ease;
+    padding: $spacer-m 0 0;
+    &.on {
+      display: block;
+      opacity: 1;
+    }
+  }
+}
+// 보험마켓용
+.tab-head {
+  .text-headline {
+    display: none;
+    opacity: 0;
+    transition: opacity .35s ease;
+    &.on {
+      display: block;
+      opacity: 1;
+    }
+  }
+}
+
+.module-table {
+  border-top: 1px solid $color-text-hint;
+  table {
+    table-layout: fixed;
+    width: 100%;
+  }
+  th, td {
+    padding: $spacer-xs;
+    font-size: 14px;
+    line-height: 1.71;
+    text-align: left;
+  }
+  tbody {
+    th, td {
+      vertical-align: top;
+      border-bottom: 1px solid $color-text-hint;
+    }
+  }
+  th {
+    font-weight: 500;
+    background: $color-bg-90;
+  }
+  td {
+
+  }
+  .align-left {
+    text-align: right;
+  }
+  .align-right {
+    text-align: right;
+  }
+}
+.table-status {
+  font-size: 14px;
+  color: $color-text-sub;
+  line-height: 1;
+  em {
+    color: $color-text-default;
+    font-weight: 500;
+    &::before {
+      content: "";
+      display: inline-block;
+      margin: 0 9px;
+      width: 1px;
+      height: 10px;
+      background: $color-disabled;
+    }
+  }
+  & + .module-table {
+    margin-top: $spacer-r;
+  }
+}
+
+// 광고실적, 정산
+a.module-calculate,
+a.module-perfomance {
+  position: relative;
+  &::after {
+    position: absolute;
+    top: $spacer-r;
+    right: 0;
+    @include pseudo-bg(16px, 16px);
+    background-image: url(../img/ico_arrow_link.svg);
+  }
+}
+
+// 광고실적
+.module-perfomance {
+  display: flex;
+  align-items: stretch;
+  padding: $spacer-r 0;
+  height: 128px;
+  box-sizing: border-box;
+  .list & {
+    border-bottom: solid 1px $color-text-hint;
+    &:first-of-type {
+      border-top: solid 1px $color-text-hint;
+    }
+  }
+  dl {
+    display: flex;
+  }
+  dt {
+    margin-right: 26px;
+    flex: 0 0 48px;
+    img {
+      width: 100%;
+    }
+  }
+  dd {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1 1 auto;
+    width: calc(100% - 74px);
+  }
+  .name {
+    margin-right: 31px;
+    font-weight: 500;
+  }
+  .total {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+  }
+  .price {
+    font-size: 20px;
+    color: $color-secondary-dark;
+    line-height: 1;
+    font-weight: 400;
+  }
+  .cases {
+    font-size: 14px;
+    color: $color-text-sub;
+    line-height: 1;
+    em {
+      color: $color-text-default;
+      font-weight: 500;
+      &::before {
+        content: "";
+        display: inline-block;
+        margin: 0 9px;
+        width: 1px;
+        height: 10px;
+        background: $color-disabled;
+      }
+    }
+  }
+}
+
+// 정산
+.module-calculate {
+  display: block;
+  padding: $spacer-r 0;
+  border-bottom: solid 1px $color-text-hint;
+  &:first-of-type {
+    border-top: solid 1px $color-text-hint;
+  }
+
+  .date {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .price {
+    display: block;
+    margin: $spacer-s 0 $spacer-r;
+    font-size: 24px;
+    color: $color-bk;
+    font-weight: 400;
+    line-height: 1.42;
+  }
+}
+
+// 보험상품
+.module-insu {
+  padding: {
+    top: 29px;
+    bottom: $spacer-m;
+  }
+  border-top: solid 1px $color-text-hint;
+  dl {
+    display: flex;
+  }
+  dt {
+    margin-right: 24px;
+    flex: 0 0 48px;
+    img {
+      width: 100%;
+    }
+  }
+  dd {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1 1 auto;
+    width: calc(100% - 74px);
+  }
+  .detail {
+    flex: 1 1 calc(100% - 70px);
+    word-break: keep-all;
+    letter-spacing: -0.05em;
+    .name {
+      font-weight: 500;
+    }
+    .desc {
+      margin-top: $spacer-xs;
+      font-size: 14px;
+      color: $color-text-sub;
+      line-height: 1.43;
+    }
+    .additional {
+      margin-bottom: $spacer-xs;
+    }
+    .date {
+      margin-left: $spacer-xs;
+      font-size: 14px;
+      color: $color-text-sub;
+      line-height: 1.43;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+    .contractor {
+      margin: $spacer-s 0 14px;
+      font-size: 14px;
+      color: $color-text-sub;
+      line-height: 1.43;
+      li {
+        & + li {
+          margin-top: 3px;
+        }
+        span {
+          display: inline-block;
+          width: 55px;
+          & + span {
+            &::before {
+              content: "";
+              display: inline-block;
+              margin: 0 $spacer-xs;
+              width: 1px;
+              height: 10px;
+              background: $color-text-hint;
+            }
+          }
+        }
+      }
+    }
+    .price {
+      font-size: 14px;
+      color: $color-text-sub;
+      text-align: right;
+      strong {
+        margin-left: $spacer-s;
+        font-size: 20px;
+        color: $color-text-basic;
+        line-height: 1.3;
+        font-weight: 500;
+      }
+    }
+  }
+  .ad {
+    flex: 0 0 70px;
+    text-align: right;
+    .num {
+      display: block;
+      margin-top: 4px;
+      font-size: 20px;
+      color: $color-secondary-dark;
+      font-weight: 700;
+      line-height: 1.2;
+
+    }
+  }
+  .event {
+    position: relative;
+    margin-top: 12px;
+    padding: 4px 12px 4px 22px;
+    width: 100%;
+    font-size: 12px;
+    background: rgba($color-warning, 0.2);
+    border-radius: 6px;
+    box-sizing: border-box;
+    .icon {
+      position: absolute;
+      top: 50%;
+      left: -7px;
+      width: 24px;
+      transform: translate3d(0, -50%, 0);
+      img {
+        width: 100%;
+      }
+    }
+  }
+  .btn {
+    margin-top: 18px;
+  }
+  &.w-price {
+    dt {
+      margin-right: $spacer-r;
+    }
+  }
+}
+
+// 보장분석
+.module-customer {
+  display: block;
+  padding: 15px 0;
+  border-top: 1px solid $color-text-hint;
+  .core {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .name {
+    font-size: 20px;
+    color: $color-text-basic;
+    font-weight: 500;
+    line-height: 1.3;
+
+  }
+  .rate {
+    display: inline-block;
+    margin-right: $spacer-s;
+    padding: 0 9px;
+    height: 20px;
+    font-size: 12px;
+    color: $color-text-sub;
+    line-height: 20px;
+    background: $color-text-hint;
+    border-radius: 3px;
+  }
+  .detail {
+    margin-top: 40px;
+    color: $color-text-sub;
+  }
+  .info {
+    font-size: 14px;
+    span {
+      & + span {
+        &::before {
+          content: "";
+          display: inline-block;
+          margin: 0 $spacer-xs;
+          width: 1px;
+          height: 10px;
+          vertical-align: middle;
+          background: $color-disabled;
+        }
+      }
+    }
+  }
+  .date {
+    margin-top: $spacer-xs;
+    font-size: 10px;
+    line-height: 1.6;
+  }
+}
+
+.module-gauge {
+  position: relative;
+  ul {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 9px;
+      left: 25px;
+      display: block;
+      width: 85%;
+      height: 6px;
+      background: $color-text-hint;
+      box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+    }
+  }
+  li {
+    input:checked {
+      & + label {
+        &::before {
+          border-color: $color-text-hint;
+        }
+      }
+    }
+    label {
+      padding-left: 0;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 2;
+      text-align: center;
+      &:active {
+        -webkit-tap-highlight-color: transparent;
+      }
+      &::after {
+        display: none;
+      }
+      &::before {
+        position: static;
+        margin: 0 auto;
+        transform: none;
+        margin: {
+          bottom: 12px;
+        }
+        width: 24px;
+        height: 24px;
+        border: 1px solid $color-text-hint;
+        background: $color-bg-80;
+      }
+    }
+  }
+  .drop {
+    position: absolute;
+    top: -5px;
+    left: 35px;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid $color-primary-dark;
+    background: $color-primary-light;
+    transform: translate(-50%, 0);
+    transition: left 0.8s;
+    &.move {
+      animation: scale-animation .8s ease-in-out;
+    }
+  }
+  &.index0 {
+    .drop {
+      left: 23px;
+    }
+  }
+  &.index1 {
+    .drop {
+      left: 50%;
+    }
+  }
+  &.index2 {
+    .drop {
+      left: 93%;
+    }
+  }
+}
+
+// 기준치 과표준 표기 바
+.module-degree {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  background: $color-bg-80;
+  border-radius: 9px;
+  span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    max-width: 100%;
+    height: 10px;
+    background: $color-primary-dark;
+    border-radius: 9px;
+  }
+}
+
+// 아코디언 테이블
+.module-accordion {
+  border-bottom: 1px solid $color-text-hint;
+  .head, .sub-head {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding: {
+      right: 36px;
+      left: $spacer-xs;
+    }
+    font-size: 14px;
+    font-weight: 500;
+    .icon {
+      position: absolute;
+      right: $spacer-xs;
+      transition: transform .35s;
+    }
+  }
+  .head {
+    color: $color-wh;
+    line-height: 36px;
+    background: $color-disabled;
+    &.ripple {
+      &::before {
+        left: calc(100% - 14px);
+      }
+    }
+    .icon {
+      top: 10px;
+    }
+  }
+  .sub-head {
+    line-height: 44px;
+    border-top: 1px solid $color-text-hint;
+    background: $color-bg-80;
+    &.ripple {
+      &::before {
+        left: calc(100% - 14px);
+      }
+    }
+    .icon {
+      top: 14px;
+    }
+  }
+  .accordion {
+    &:first-of-type {
+      .sub-head {
+        border-top-width: 0;
+      }
+    }
+    & + .accordion {
+      margin-top: -1px;
+    }
+  }
+  .collapse {
+    overflow: hidden;
+    // display: none;
+    opacity: 0;
+    max-height: 0;
+    box-sizing: border-box;
+    transition: max-height 0.3s ease-in-out, opacity 1s;
+  }
+  &.expand-all {
+    border-bottom-width: 0;
+  }
+  &.expand-all, .accordion.expand {
+    & > .collapse {
+      // display: block;
+      opacity: 1;
+      max-height: 10000px;
+    }
+    & > .head, & > .sub-head {
+      .icon {
+        transform: rotate(-180deg);
+      }
+    }
+  }
+}
