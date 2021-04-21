@@ -1,0 +1,107 @@
+.module-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    // background: rgba(255, 255, 255, 0.5);
+    .inner {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        padding-left: 17px;
+        width: 64px;
+        height: 64px;
+        border: solid 1px $color-text-sub;
+        background:$color-bg-80;
+        border-radius: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        box-sizing: border-box;
+        box-shadow: 0 2px 10px 0 rgba($color-bk, 0.24), 0 0 5px 0 rgba($color-bk, 0.22);
+    }
+    .bar {
+        position: relative;
+        float: left;
+        top: 40px;
+        margin-right: 2px;
+        width: 4px;
+        height: 1px;
+        border: solid 1px $color-bk;
+        overflow: hidden;
+        background: $color-wh;
+        color: transparent;
+        animation: rhythm 1.7s ease-out infinite;
+        
+        &.b1 {
+            animation-delay: 0.5s;
+        }
+        &.b2 {
+            animation-delay: 0.2s;
+        }
+        &.b3 {
+            animation-delay: 0.4s;
+        }
+        &.b4 {
+            animation-delay: 0.9s;
+        }
+
+        &::after {
+            content: "";
+            opacity: 0;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: $color-primary-dark;
+            animation: bg 1.5s infinite;
+        }
+        &.b1::after {
+          animation-delay: 2.8s;
+        }
+        &.b2::after {
+          animation-delay: 1.7s;
+        }
+        &.b3::after {
+          animation-delay: 0.8s;
+        }
+        &.b4::after {
+          animation-delay: 0s;
+        }
+    }
+}
+@keyframes rhythm {
+    0% {
+        height: 1px;
+        margin-top: 0;
+    }
+    10% {
+        height: 19px;
+        margin-top: -19px;
+    }
+    50% {
+        height: 9px;
+        margin-top: -9px;
+    }
+    60% {
+        height: 13px;
+        margin-top: -13px;
+    }
+    80% {
+        height: 26px;
+        margin-top: -26px;
+    }
+    100% {
+        height: 1px;
+        margin-top: 0;
+    }
+}
+@keyframes bg {
+    0%, 50%, 100% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 1;
+    }
+}

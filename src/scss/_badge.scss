@@ -1,0 +1,87 @@
+@charset "utf-8";
+
+.badge {
+  display: inline-block;
+  padding: 0 14px;
+  height: 26px;
+  font-size: 14px;
+  line-height: 26px;
+  text-align:center;
+  vertical-align: middle;
+  border-radius: 6px;
+  box-sizing: border-box;
+
+  &.small {
+    padding: {
+      left: $spacer-s;
+      right: $spacer-s;
+    }
+    height: 20px;
+    font-size: 12px;
+    line-height: 20px;
+  }
+
+  &.tiny {
+    padding: {
+      left: $spacer-xs;
+      right: $spacer-xs;
+    }
+    height: 16px;
+    font-size: 10px;
+    line-height: 16px;
+  }
+
+  &.success {
+    color: $color-wh;
+    background: $color-disabled;
+  }
+  &.error {
+    color: $color-wh;
+    background: $color-error;
+  }
+  &.nodata {
+    color: $color-text-hint;
+    background: $color-disabled;
+  }
+  &.proceeding {
+    color: $color-wh;
+    background: $color-secondary-light;
+  }
+  &.normal {
+    color: $color-text-sub;
+    background: $color-bg-90;
+  }
+
+  &.danger, &.caution, &.good, &.enough, &.life, &.nonelife {
+    padding: 0 $spacer-xs;
+    height: 20px;
+    font-size: 12px;
+    line-height: 20px;
+    border-radius: 4px;
+  }
+  &.danger {
+    color: #b10300;
+    background: #fbe6e6;
+  }
+  &.caution {
+    color: #8b6402;
+    background: #fef4da;
+  }
+  &.good {
+    color: #3956cc;
+    background: #dbe0f6;
+  }
+  &.enough {
+    color: #00767e;
+    background: #e2f8fa;
+  }
+
+  &.life {
+    color: #3956cc;
+    background: #dbe0f6;
+  }
+  &.nonelife {
+    color: #00767e;
+    background: #e2f8fa;
+  }
+}

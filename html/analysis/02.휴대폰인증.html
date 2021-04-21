@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, viewport-fit=cover, initial-scale=1.0" />
+        <meta name="title" content="인바이유" />
+        <meta name="author" content="inbyu" />
+        <meta name="copyright" content="inbyu" />
+        <title>인바이유</title>
+        <link rel="stylesheet" href="../../resources/css/common.css" />
+        <script src="../../resources/js/lib/jquery-3.3.1.min.js"></script>
+        <style>
+        </style>
+    </head>
+    <body>
+    <div><!-- vue 작업용 무의미 div -->
+        <div class="wrap" id="wrap">
+            <div class="head-button">
+                <a href="javascript:history.back();" class="btn-icon back"></a>
+            </div>
+            <div class="container" id="container">
+                <header class="header">
+                    <h1 class="text-headline">휴대폰 인증과<br> 약관동의를 진행해 주세요.</h1>
+                    <div class="progressbar"><span class="col-5 step-2"></span></div>
+                </header>
+                <div class="contents" id="contents">
+                    <fieldset>
+                        <div class="form-group select"><!-- input error 시 class error 추가 -->
+                            <strong class="input-label">휴대폰번호</strong>
+                            <span class="f-text">
+                                <input type="text" placeholder="통신사를 선택해주세요." id="telecom" readonly>
+                                <a href="#layerChooseTel" class="btn-trigger e-layer"></a>
+                            </span>
+                        </div>
+                        <div class="form-group">
+                                <span class="f-text">
+                                    <input type="tel" pattern="[0-9]*" inputmode="numeric" placeholder="휴대폰 번호를 입력해주세요.(-없이)" maxlength="11">
+                                </span>
+                                <p class="text-error">영문으로 입력해주세요.</p>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="area-button fixed">
+                    <a href="javascript:;" class="btn btn-primary disabled">약관동의 및 인증번호 발송</a><!-- 활성 시 disabled 삭제 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- layer: 통신사 선택  -->
+        <section class="layer bottom layer-choose_tel" id="layerChooseTel">
+            <div class="container">
+                <div class="wrapping">
+                    <header class="head">
+                        <h2 class="text-headline-6">통신사 선택</h2>
+                    </header>
+                    <div class="content">
+                        <ul class="list-radio">
+                            <li><input type="radio" id="skt" name="chooseTelecom"><label for="skt">SKT</label></li>
+                            <li><input type="radio" id="kt" name="chooseTelecom"><label for="kt">KT</label></li>
+                            <li><input type="radio" id="lgu" name="chooseTelecom"><label for="lgu">LG U+</label></li>
+                            <li><input type="radio" id="sktsave" name="chooseTelecom"><label for="sktsave">SKT 알뜰폰</label></li>
+                            <li><input type="radio" id="ktsave" name="chooseTelecom"><label for="ktsave">KT 알뜰폰</label></li>
+                            <li><input type="radio" id="lgusave" name="chooseTelecom"><label for="lgusave">LG U+ 알뜰폰</label></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="area-button">
+                    <button type="button" class="btn btn-text e-close">닫기</button>
+                </div>
+            </div>
+            <div class="dimmed"></div>
+        </section><!-- //layer: 메일 선택  -->
+    </div>
+
+        <!-- ui관련 js -->
+        <script src="../../resources/js/event.js"></script>
+        <script>
+            $(function() {
+                const $window = window.$window || $(window);
+                const $body = $('body');
+
+                // 메일 도메인 직접 입력
+                $body.on('click', 'input[name="chooseTelecom"]', function(){
+                    const $this = $(this),
+                          $input = $('#telecom'),
+                          $findParentLayer = $(this).closest('.layer'),
+                          $findParentWrap = $($input.closest('.form-group'));
+                    let checkedTelecomVal = $this.siblings('label').text();
+
+                    $findParentWrap.removeClass('over');
+                    $input.val(checkedTelecomVal);
+
+                    closeLayer($findParentLayer);
+                });
+
+            });
+        </script>
+    </body>
+</html>

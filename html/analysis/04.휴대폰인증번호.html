@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, viewport-fit=cover, initial-scale=1.0" />
+        <meta name="title" content="인바이유" />
+        <meta name="author" content="inbyu" />
+        <meta name="copyright" content="inbyu" />
+        <title>인바이유</title>
+        <link rel="stylesheet" href="../../resources/css/common.css" />
+        <script src="../../resources/js/lib/jquery-3.3.1.min.js"></script>
+        <style>
+        </style>
+    </head>
+    <body>
+    <div><!-- vue 작업용 무의미 div -->
+        <div class="wrap" id="wrap">
+            <div class="head-button">
+                <a href="javascript:history.back();" class="btn-icon back"></a>
+            </div>
+            <div class="container" id="container">
+                <header class="header">
+                    <h1 class="text-headline">휴대폰 인증번호를<br> 입력해주세요.</h1>
+                    <div class="progressbar"><span class="col-5 step-4"></span></div>
+                </header>
+                <div class="contents" id="contents">
+                    <fieldset>
+                        <div class="form-group select"><!-- input error 시 class error 추가 -->
+                            <strong class="input-label">휴대폰번호</strong>
+                            <span class="f-text">
+                                <input type="text" value="KT" id="telecom" readonly>
+                                <a href="javascript:;" class="btn-trigger"></a>
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <span class="f-text">
+                                <input type="tel" pattern="[0-9]*" inputmode="numeric" value="01012345678" maxlength="11" readonly>
+                            </span>
+                        </div>
+                        <div class="form-group"><!-- input error 시 class error 추가 -->
+                            <span class="f-text">
+                                <input type="tel" pattern="[0-9]*" inputmode="numeric" placeholder="인증번호 6자리 입력" maxlength="6">
+                            </span>
+                            <em class="timer">5:00</em>
+                            <p class="text-error"></p>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="area-button fixed">
+                    <a href="javascript:;" class="btn btn-primary disabled">확인</a><!-- 활성 시 disabled 삭제 -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+        <!-- ui관련 js -->
+        <script src="../../resources/js/event.js"></script>
+        <script>
+            $(function() {
+                const $window = window.$window || $(window);
+                const $body = $('body');
+
+
+            });
+
+        </script>
+    </body>
+</html>
